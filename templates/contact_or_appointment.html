@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title>Contact / Rendez-vous — MATERNUM &amp; INFANS</title>
+
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;600;800&family=Poppins:wght@300;600;800&display=swap" rel="stylesheet">
+
+  <!-- Bootstrap + FontAwesome -->
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet"/>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"/>
+
+  <!-- Optional shared stylesheet -->
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+
+  <style>
+    :root{
+      --turquoise:#2AC7C9; --cyan:#4FC3E8; --vert-clair:#7BE495; --bleu-marine:#183153;
+      --orange:#FFB86C; --bg-soft:#F7FBFA; --card-radius:16px; --btn-radius:999px;
+      --shadow-md: 0 10px 26px rgba(24,49,83,0.06);
+    }
+    html,body{
+      font-family: "Poppins", "Nunito", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+      color:var(--bleu-marine);
+      background: linear-gradient(180deg, #f4fbfb 0%, #f8fdfd 100%);
+      margin:0; padding:0; box-sizing:border-box; -webkit-font-smoothing:antialiased;
+    }
+
+    .container-card{
+      max-width:900px;
+      margin:5vh auto;
+      background: linear-gradient(180deg, rgba(255,255,255,0.98), rgba(255,255,255,0.95));
+      border-radius: var(--card-radius);
+      padding: 22px;
+      box-shadow: 0 18px 40px rgba(24,49,83,0.06);
+      border: 1px solid rgba(24,49,83,0.03);
+    }
+
+    .top-controls{
+      display:flex;
+      gap:12px;
+      align-items:center;
+      justify-content:space-between;
+      margin-bottom:10px;
+      flex-wrap:wrap;
+    }
+
+    .switch-group { display:flex; gap:8px; align-items:center; }
+    .switch-btn {
+      padding:10px 16px;
+      border-radius: 999px;
+      border: 1px solid rgba(24,49,83,0.05);
+      background: white;
+      cursor:pointer;
+      font-weight:700;
+      color:var(--bleu-marine);
+    }
+    .switch-btn.active {
+      background: linear-gradient(90deg,var(--turquoise),var(--vert-clair));
+      color:#042f33;
+      box-shadow: 0 10px 28px rgba(42,199,201,0.10);
+    }
+
+    h3 { margin:0 0 8px 0; font-weight:800; }
+    p.lead { margin:0 0 16px 0; color:#55657a; }
+
+    .form-section { display:none; margin-top:8px; }
+    .form-section.active { display:block; }
+
+    .form-control { border-radius:10px; }
+    .btn-primary-main {
+      background: linear-gradient(90deg,var(--turquoise),var(--vert-clair));
+      border: none;
+      color:#062f33;
+      font-weight:800;
+      border-radius:999px;
+      padding:10px 18px;
+      box-shadow: 0 12px 30px rgba(42,199,201,0.10);
+    }
+
+    .hint { font-size:13px; color:#6b7a94; margin-top:10px; }
+
+    footer{ text-align:center; padding:18px; color:#6b7a94; font-size:13px; margin-top:18px;}
+
+    @media (max-width:720px){ .top-controls{flex-direction:column; align-items:stretch} }
+  </style>
+</head>
+<body>
+
+  <div class="container-card" role="main" aria-labelledby="pageTitle">
+    <div class="top-controls">
+      <div>
+        <h3 id="pageTitle">Contacter un conseiller — Prendre un rendez-vous</h3>
+        <p class="lead">Choisissez une action puis remplissez le formulaire. Nous transférons l'information au conseiller approprié.</p>
+      </div>
+
+      <div class="switch-group" role="tablist" aria-label="Choisir action">
+        <button id="btnContact" class="switch-btn active" role="tab" aria-selected="true">Envoyer un message</button>
+        <button id="btnAppointment" class="switch-btn" role="tab" aria-selected="false">Prendre RDV</button>
+      </div>
+    </div>
+
+    <!-- Formulaire Message rapide (contact advisor) -->
+    <section id="sectionContact" class="form-section active" aria-labelledby="btnContact">
+      <form id="contactForm" novalidate autocomplete="off">
+        <div class="form-row">
+          <div class="form-group col-md-6">
+            <label for="contact_phone">Numéro de téléphone</label>
+            <input type="tel" id="contact_phone" class="form-control" placeholder="+2265412XXXX" required inputmode="tel" pattern="^\+?\d{8,15}$" aria-required="true">
+            <small class="form-text text-muted">Format international recommandé.</small>
+          </div>
+          <div class="form-group col-md-6">
+            <label for="contact_name">Nom</label>
+            <input type="text" id="contact_name" class="form-control" placeholder="Votre nom" required autocomplete="name"
+                   value="{{ current_user if current_user is string else '' }}">
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group col-md-12">
+            <label for="contact_email">Email</label>
+            <input type="email" id="contact_email" class="form-control" placeholder="exemple@domaine.com" required autocomplete="email"
+                   value="{{ session.get('user_email','') if session.get('user_email') else '' }}">
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="contact_message">Message</label>
+          <textarea id="contact_message" class="form-control" rows="5" placeholder="Décrivez votre demande..." required aria-required="true"></textarea>
+        </div>
+
+        <div class="d-flex gap-2">
+          <button type="submit" id="contactSubmit" class="btn btn-primary-main" aria-live="polite" aria-busy="false">
+            <span id="contactText">Envoyer au conseiller</span>
+            <span id="contactSpinner" class="spinner-border spinner-border-sm" role="status" aria-hidden="true" style="display:none"></span>
+          </button>
+          <button type="button" id="contactReset" class="btn btn-outline-secondary" onclick="$('#contactForm')[0].reset()">Effacer</button>
+        </div>
+
+        <div id="contactFeedback" class="hint" role="status" aria-live="polite"></div>
+      </form>
+    </section>
+
+    <!-- Formulaire Rendez-vous -->
+    <section id="sectionAppointment" class="form-section" aria-labelledby="btnAppointment">
+      <form id="appointmentForm" novalidate autocomplete="off">
+        <div class="form-row">
+          <div class="form-group col-md-8">
+            <label for="appt_phone">Numéro de téléphone</label>
+            <input type="tel" id="appt_phone" class="form-control" placeholder="+2265412XXXX" required inputmode="tel" pattern="^\+?\d{8,15}$" aria-required="true">
+            <small class="form-text text-muted">Format international recommandé.</small>
+          </div>
+          <div class="form-group col-md-4">
+            <label for="appt_date">Date</label>
+            <input type="date" id="appt_date" class="form-control" required aria-required="true">
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group col-md-6">
+            <label for="appt_time">Heure (optionnelle)</label>
+            <input type="time" id="appt_time" class="form-control" value="09:00" aria-label="Heure">
+          </div>
+          <div class="form-group col-md-6">
+            <label for="appt_name">Nom (optionnel)</label>
+            <input type="text" id="appt_name" class="form-control" placeholder="Votre nom" autocomplete="name"
+                   value="{{ current_user if current_user is string else '' }}">
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="appt_description">Motif</label>
+          <textarea id="appt_description" class="form-control" rows="3" placeholder="Ex: consultation prénatale, vaccination..." required aria-required="true"></textarea>
+        </div>
+
+        <div class="d-flex gap-2">
+          <button type="submit" id="apptSubmit" class="btn btn-primary-main" aria-live="polite" aria-busy="false">
+            <span id="apptText">Prendre Rendez-vous</span>
+            <span id="apptSpinner" class="spinner-border spinner-border-sm" role="status" aria-hidden="true" style="display:none"></span>
+          </button>
+          <button type="button" id="apptReset" class="btn btn-outline-secondary" onclick="$('#appointmentForm')[0].reset()">Effacer</button>
+        </div>
+
+        <div id="apptFeedback" class="hint" role="status" aria-live="polite"></div>
+      </form>
+    </section>
+
+    <p class="hint">Remarque : votre message sera transféré à un conseiller. Pour prendre un rendez-vous, vous devez être connecté.</p>
+  </div>
+
+  <!-- Floating mini menu  -->
+  {% include '_floating_menu.html' %}
+
+  <footer>&copy; 2025 MATERNUM &amp; INFANS — Tous droits réservés.</footer>
+
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+  <script>
+    // Helpers
+    const PHONE_RE = /^\+?\d{8,15}$/;
+
+    function showAlert(targetSelector, kind, text) {
+      const cls = kind === 'success' ? 'alert alert-success' : 'alert alert-danger';
+      $(targetSelector).html('<div class="'+cls+'">'+text+'</div>');
+    }
+
+    async function handleJsonResponse(resp) {
+      // Si le serveur redirige (ex: response.redirected true), on renvoie l'info
+      if (resp.redirected) {
+        return { error: 'Vous devez être connecté. Veuillez vous connecter.', _redirected: true, url: resp.url };
+      }
+      if (resp.status === 401) {
+        // API classique : renvoyer JSON + 401
+        try {
+          const data = await resp.json();
+          return { error: data?.error || data?.message || 'Authentification requise.' };
+        } catch (e) {
+          return { error: 'Authentification requise.' };
+        }
+      }
+      try {
+        const data = await resp.json();
+        if (!resp.ok) {
+          return { error: data?.error || data?.message || 'Erreur serveur' };
+        }
+        return data || {};
+      } catch (e) {
+        // Pas de JSON : si ok, juste retourner vide, sinon message d'erreur générique
+        if (resp.ok) return {};
+        return { error: 'Erreur serveur (réponse inattendue).' };
+      }
+    }
+
+    // Toggle sections
+    $('#btnContact').on('click', function(){
+      $('.switch-btn').removeClass('active').attr('aria-selected', 'false');
+      $(this).addClass('active').attr('aria-selected','true');
+      $('.form-section').removeClass('active');
+      $('#sectionContact').addClass('active');
+    });
+    $('#btnAppointment').on('click', function(){
+      $('.switch-btn').removeClass('active').attr('aria-selected', 'false');
+      $(this).addClass('active').attr('aria-selected','true');
+      $('.form-section').removeClass('active');
+      $('#sectionAppointment').addClass('active');
+    });
+
+    // Contact submit
+    $('#contactForm').on('submit', async function(e){
+      e.preventDefault();
+      $('#contactFeedback').html('');
+      const phone = $('#contact_phone').val().trim();
+      const name = $('#contact_name').val().trim();
+      const email = $('#contact_email').val().trim();
+      const message = $('#contact_message').val().trim();
+
+      if (!phone || !name || !email || !message) {
+        showAlert('#contactFeedback','error','Veuillez remplir tous les champs.');
+        return;
+      }
+      if (!PHONE_RE.test(phone)) {
+        showAlert('#contactFeedback','error','Format du numéro invalide. Ex: +2265412XXXX.');
+        return;
+      }
+
+      $('#contactSubmit').prop('disabled', true).attr('aria-busy','true');
+      $('#contactText').hide(); $('#contactSpinner').show();
+
+      try {
+        const resp = await fetch('/contact_advisor', {
+          method: 'POST',
+          headers: {'Content-Type':'application/json'},
+          body: JSON.stringify({ phone_number: phone, name, email, message })
+        });
+        const result = await handleJsonResponse(resp);
+        if (result._redirected) {
+          showAlert('#contactFeedback','error','Vous devez être connecté pour contacter un conseiller. <a href="'+result.url+'">Se connecter</a>');
+        } else if (result.error) {
+          showAlert('#contactFeedback','error', result.error);
+        } else {
+          showAlert('#contactFeedback','success', result.message || 'Message envoyé au conseiller.');
+          $('#contactForm')[0].reset();
+        }
+      } catch (err) {
+        console.error('contact_advisor error:', err);
+        showAlert('#contactFeedback','error','Erreur réseau. Réessayez plus tard.');
+      } finally {
+        $('#contactSubmit').prop('disabled', false).attr('aria-busy','false');
+        $('#contactText').show(); $('#contactSpinner').hide();
+      }
+    });
+
+    // Appointment submit
+    $('#appointmentForm').on('submit', async function(e){
+      e.preventDefault();
+      $('#apptFeedback').html('');
+      const phone = $('#appt_phone').val().trim();
+      const date = $('#appt_date').val();
+      const time = $('#appt_time').val() || '09:00';
+      const name = $('#appt_name').val().trim() || 'Inconnu';
+      const description = $('#appt_description').val().trim();
+
+      if (!phone || !date || !description) {
+        showAlert('#apptFeedback','error','Veuillez remplir tous les champs obligatoires.');
+        return;
+      }
+      if (!PHONE_RE.test(phone)) {
+        showAlert('#apptFeedback','error','Format du numéro invalide. Ex: +2265412XXXX.');
+        return;
+      }
+      const dt = new Date(date); dt.setHours(0,0,0,0);
+      const today = new Date(); today.setHours(0,0,0,0);
+      if (dt < today) {
+        showAlert('#apptFeedback','error','Veuillez choisir une date égale ou postérieure à aujourd\'hui.');
+        return;
+      }
+
+      $('#apptSubmit').prop('disabled', true).attr('aria-busy','true');
+      $('#apptText').hide(); $('#apptSpinner').show();
+
+      try {
+        const resp = await fetch('/schedule_appointment', {
+          method: 'POST',
+          headers: {'Content-Type':'application/json'},
+          body: JSON.stringify({ phone_number: phone, appointment_date: date, appointment_time: time, description: description })
+        });
+        const result = await handleJsonResponse(resp);
+        if (result._redirected) {
+          showAlert('#apptFeedback','error','Vous devez être connecté pour prendre un rendez-vous. <a href="'+result.url+'">Se connecter</a>');
+        } else if (result.error) {
+          showAlert('#apptFeedback','error', result.error);
+        } else {
+          showAlert('#apptFeedback','success', result.message || 'Rendez-vous enregistré.');
+          $('#appointmentForm')[0].reset();
+        }
+      } catch (err) {
+        console.error('schedule_appointment error:', err);
+        showAlert('#apptFeedback','error','Erreur réseau. Réessayez plus tard.');
+      } finally {
+        $('#apptSubmit').prop('disabled', false).attr('aria-busy','false');
+        $('#apptText').show(); $('#apptSpinner').hide();
+      }
+    });
+  </script>
+</body>
+</html>

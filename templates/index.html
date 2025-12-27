@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title>MATERNUM & INFANS</title>
+
+  <!-- Google Fonts: Poppins + Nunito -->
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;600;800&family=Poppins:wght@300;600;800&display=swap" rel="stylesheet">
+
+  <!-- Bootstrap + FontAwesome -->
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet"/>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"/>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+  <style>
+    :root{
+      --turquoise: #2AC7C9;
+      --cyan: #4FC3E8;
+      --vert-clair: #7BE495;
+      --bleu-marine: #183153;
+      --orange: #FFB86C;
+      --bg-soft: #F7FBFA;
+      --card-radius: 16px;
+      --btn-radius: 999px;
+    }
+
+    /* Safety layout */
+    html,body{
+      width:100%;
+      height:100%;
+      margin:0;
+      padding:0;
+      box-sizing:border-box;
+      overflow-x:hidden; /* évite l'espace blanc à droite */
+      background: linear-gradient(180deg, #f4fbfb 0%, #f8fdfd 100%);
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+      font-family: "Poppins", "Nunito", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+      color:var(--bleu-marine);
+    }
+    *, *::before, *::after { box-sizing: inherit; }
+
+    /* Header */
+    .site-header{
+      background: rgba(255,255,255,0.98);
+      border-bottom: 1px solid rgba(24,49,83,0.06);
+      padding: 12px 20px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:12px;
+      position:sticky;
+      top:0;
+      z-index:50;
+      width:100%;
+    }
+    .brand { display:flex; align-items:center; gap:12px; }
+    .brand-logo{
+      width:48px;height:48px;border-radius:12px;
+      background: linear-gradient(135deg,var(--cyan),var(--vert-clair));
+      display:flex;align-items:center;justify-content:center;color:white;
+      box-shadow: 0 6px 18px rgba(44,199,201,0.12);
+      overflow:hidden;
+    }
+    .brand-logo img{ width:100%; height:100%; object-fit:cover; border-radius:12px; }
+    .brand-title h1{ margin:0; font-size:18px; color:var(--bleu-marine); font-weight:800; }
+    .brand-title p{ margin:0; font-size:12px; color:#55657a; }
+
+    .header-menu a { margin-left:14px; color:var(--bleu-marine); text-decoration:none; font-weight:600; }
+    .header-right { display:flex; align-items:center; gap:12px; }
+
+    /* HERO */
+    .hero-wrap{ width:100%; padding:18px; display:flex; justify-content:center; }
+    .hero {
+      width:100%;
+      max-width:1200px;
+      border-radius:18px;
+      overflow:hidden;
+      min-height: 400px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      text-align:center;
+      padding: 48px 22px;
+      color: white;
+      position: relative;
+      
+      background-image: url("{{ url_for('static', filename='images/hero_bg.png') }}");
+      background-size: cover;
+      background-position: center center;
+    }
+    .hero::after{
+      content:'';
+      position:absolute; left:0; right:0; top:0; bottom:0;
+      background: linear-gradient(180deg, rgba(24,49,83,0.30), rgba(44,199,201,0.08));
+      pointer-events:none;
+    }
+    .hero-inner{ position:relative; z-index:2; max-width:920px; width:100%; padding: 16px; }
+    .hero .title { font-size:34px; font-weight:800; margin:0 0 8px; font-family: "Nunito", "Poppins"; text-align:center; color:var(--bleu-marine); }
+    .hero .subtitle { font-size:16px; margin:0 0 14px; opacity:0.95; text-align:center; color: #083046; }
+
+    .cta-pill {
+      display:inline-flex; align-items:center; gap:12px;
+      padding:12px 20px; border-radius: var(--btn-radius);
+      background: linear-gradient(90deg,var(--bleu-marine), #0b4a6b);
+      color: white; font-weight:700; border: 0;
+      box-shadow: 0 10px 24px rgba(24,49,83,0.16); cursor:pointer;
+      text-decoration:none;
+    }
+    .cta-pill i{ font-size:18px; }
+
+    /* features */
+    .features { display:grid; grid-template-columns: repeat(auto-fit,minmax(220px,1fr)); gap:20px; margin: 30px 18px; }
+    .feature-card{
+      border-radius: 14px;
+      padding: 18px;
+      color: var(--bleu-marine);
+      min-height:120px;
+      display:flex; flex-direction:column; align-items:center; justify-content:center; gap:12px;
+      background: linear-gradient(180deg, rgba(255,255,255,0.95), rgba(255,255,255,0.9));
+      box-shadow: 0 10px 26px rgba(24,49,83,0.06);
+      border: 1px solid rgba(24,49,83,0.03);
+      text-align:center;
+    }
+    .feature-icon{ width:64px;height:64px;border-radius:12px; display:inline-flex;align-items:center;justify-content:center; font-size:22px; }
+
+    /* floating actions */
+    .floating-menu{ position:fixed; right:18px; bottom:18px; display:flex; flex-direction:column; gap:12px; align-items:flex-end; z-index:9999; }
+    .float-btn{ width:64px;height:64px;border-radius:50%; display:flex;align-items:center;justify-content:center; color:white;background:var(--turquoise); border:none; box-shadow: 0 12px 30px rgba(44,199,201,0.18); cursor:pointer; font-size:20px; }
+    .float-mini { width:48px;height:48px;border-radius:12px;background:white;color:var(--bleu-marine); display:flex;align-items:center;justify-content:center;border:1px solid rgba(24,49,83,0.06); box-shadow: 0 8px 20px rgba(24,49,83,0.05); cursor:pointer; }
+    .mini-menu { background: white; border-radius: 14px; box-shadow: 0 14px 40px rgba(24,49,83,0.12); padding: 8px; min-width:220px; display:none; border:1px solid rgba(24,49,83,0.06); }
+    .mini-menu a{ display:flex; gap:12px; padding:10px; align-items:center; text-decoration:none; color:var(--bleu-marine); border-radius:8px; }
+    .mini-menu a:hover{ background: rgba(44,199,201,0.05); }
+
+    footer{ text-align:center; padding:18px; color:#6b7a94; font-size:13px; margin-top:24px;}
+
+    @media (max-width:680px){
+      .hero { min-height:260px; padding:30px 12px; }
+      .hero .title { font-size:22px; }
+      .header-menu { display:none; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <header class="site-header container-fluid">
+    <div class="brand">
+      <div class="brand-logo">
+        <img src="{{ url_for('static', filename='images/sante_maternel.png') }}" alt="logo" />
+      </div>
+      <div class="brand-title">
+        <h1>MATERNUM &amp; INFANS</h1>
+        <p>Votre guide Maman Bébé</p>
+      </div>
+    </div>
+
+    <div class="header-right">
+      <nav class="header-menu d-flex align-items-center">
+        <a href="{{ url_for('show_ask_form') }}">Mon Chat</a>
+        <a href="{{ url_for('show_add_reminder_form') }}">Rappel &amp; Notification</a>
+        <a href="{{ url_for('show_appointment_form') }}">Contactez un conseiller</a>
+      </nav>
+
+      <div class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarProfile" role="button" data-toggle="dropdown">
+            {% if current_user %}
+                <span style="font-weight:700; color:var(--bleu-marine);">{{ current_user }}</span>
+            {% else %}
+                <i class="fas fa-user"></i>
+            {% endif %}
+        </a>
+        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarProfile">
+            {% if current_user %}
+                <span class="dropdown-item-text">Bonjour {{ current_user }}</span>
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item" href="{{ url_for('show_ask_form') }}">Mon Chat</a>
+                <a class="dropdown-item" href="{{ url_for('logout') }}">Se déconnecter</a>
+            {% else %}
+                <a class="dropdown-item" href="{{ url_for('show_login_form') }}">Connexion</a>
+                <a class="dropdown-item" href="{{ url_for('show_register_form') }}">Inscription</a>
+            {% endif %}
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero -->
+  <div class="hero-wrap">
+    <section class="hero">
+      <div class="hero-inner">
+        <div class="title">Bienvenue chez MATERNUM &amp; INFANS</div>
+        <div class="subtitle">
+          {% if current_user %}
+            Bonjour {{ current_user }}  Retrouvez vos conversations, vos rappels et un accompagnement personnalisé.
+          {% else %}
+            Votre compagnon bienveillant pour une maternité sereine. Inscrivez-vous pour personnaliser l'accompagnement et recevoir des rappels.
+          {% endif %}
+        </div>
+
+        <a class="cta-pill" href="{{ url_for('show_ask_form') if current_user else url_for('show_login_form') }}">
+          <i class="fas fa-comments" style="color:white;"></i>
+          <span>Ouvrir le Chat</span>
+        </a>
+      </div>
+    </section>
+  </div>
+
+  <!-- Features -->
+  <main class="main-content" justify="center">
+    <div class="features container">
+      <div class="feature-card">
+        <div class="feature-icon" style="background:rgba(42,199,201,0.08)"><i class="fas fa-heartbeat" style="color:var(--turquoise)"></i></div>
+        <h4>Soins Prénatals</h4>
+        <p>Conseils pratiques et rappels de visites médicales.</p>
+      </div>
+
+      <div class="feature-card">
+        <div class="feature-icon" style="background:rgba(255,184,108,0.06)"><i class="fas fa-baby" style="color:var(--orange)"></i></div>
+        <h4>Maman &amp; Bébé</h4>
+        <p>Suivi postnatal, allaitement et nutrition du nourrisson.</p>
+      </div>
+
+      <div class="feature-card">
+        <div class="feature-icon" style="background:rgba(123,228,149,0.06)"><i class="fas fa-syringe" style="color:var(--vert-clair)"></i></div>
+        <h4>Vaccination</h4>
+        <p>Calendrier des vaccins et rappels automatiques.</p>
+      </div>
+    </div>
+  </main>
+
+  <footer>
+    &copy; 2025 MATERNUM &amp; INFANS — Tous droits réservés.
+  </footer>
+
+    <!-- Floating mini menu  -->
+    {% include '_floating_menu.html' %}
+
+  <script>
+    // Mini menu helpers for floating menu
+    function toggleMiniMenu(){
+      const m = document.getElementById('miniMenu');
+      if(!m) return;
+      m.style.display = (m.style.display === 'block') ? 'none' : 'block';
+    }
+    function openChat(){ window.location.href = "{{ url_for('show_ask_form') }}"; }
+    document.addEventListener('click', function(e){
+      const menu = document.getElementById('miniMenu');
+      const toggle = document.getElementById('menuToggle');
+      if (!menu || !toggle) return;
+      if (!menu.contains(e.target) && !toggle.contains(e.target)) { menu.style.display = 'none'; }
+    });
+  </script>
+
+  <!-- jQuery + Bootstrap bundle (inclut Popper) -->
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

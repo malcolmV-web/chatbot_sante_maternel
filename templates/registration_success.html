@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>Inscription réussie — MATERNUM & INFANS</title>
+
+  <!-- Fonts + Bootstrap -->
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;600;800&family=Poppins:wght@300;600;800&display=swap" rel="stylesheet">
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet"/>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+
+  <style>
+    :root{ --bleu-marine:#183153; --muted:#6b7a94; --turquoise:#2AC7C9; --vert-clair:#7BE495; }
+    html,body{
+      height:100%; margin:0;
+      font-family:"Poppins","Nunito",system-ui,Arial;
+      background:linear-gradient(180deg,#f4fbfb,#f8fdfd);
+      color:var(--bleu-marine);
+    }
+    .page-wrapper{ min-height:100vh; display:flex; flex-direction:column; }
+    main.content{ flex:1 0 auto; display:flex; align-items:center; justify-content:center; padding:28px; }
+    .card-success{
+      max-width:640px; width:100%;
+      background:#fff; padding:32px; border-radius:12px;
+      box-shadow:0 12px 36px rgba(24,49,83,0.06);
+      text-align:center; border:1px solid rgba(24,49,83,0.03);
+    }
+
+    /* Logo */
+    .site-logo { width:84px; height:84px; object-fit:contain; margin:0 auto 14px; display:block; border-radius:10px; box-shadow:0 6px 18px rgba(44,199,201,0.06); }
+
+    h2 { margin-bottom:8px; font-weight:800; color:var(--bleu-marine); }
+    .lead-text { color:#55657a; margin-bottom:18px; line-height:1.5; }
+
+    .btn-primary {
+      background: linear-gradient(90deg,var(--turquoise),var(--vert-clair));
+      border: 0; color:#043238; border-radius:999px;
+      padding:10px 16px; font-weight:700;
+      box-shadow:0 10px 24px rgba(42,199,201,0.10);
+      text-decoration:none;
+      display:inline-block;
+    }
+    .btn-primary:focus { outline: none; box-shadow: 0 0 0 3px rgba(42,199,201,0.12); }
+
+    .flash-wrap .alert { margin-top:12px; }
+
+    footer.site-footer { flex-shrink:0; background:#fff; padding:18px; text-align:center; color:var(--muted); }
+    @media (max-width:520px){ .card-success{ margin:0 12px; padding:20px; } .site-logo{ width:72px;height:72px; } }
+  </style>
+</head>
+<body>
+  <div class="page-wrapper">
+    <main class="content" role="main">
+      <div class="card-success" role="region" aria-labelledby="succTitle">
+
+        <!-- Logo -->
+        <img src="{{ url_for('static', filename='images/sante_maternel.png') }}"
+             alt="MATERNUM & INFANS" class="site-logo" />
+
+        <h2 id="succTitle">Inscription réussie&nbsp;!</h2>
+
+        <p class="lead-text">
+          Bonjour <strong>{{ user.username }}</strong>, merci pour votre inscription.
+          Un email contenant un lien d'activation a été envoyé à votre adresse.
+        </p>
+
+        <a href="{{ url_for('show_login_form') }}" class="btn-primary" role="button">Se connecter</a>
+
+        <div class="flash-wrap" aria-live="polite">
+          {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+              {% for category, message in messages %}
+                <div class="alert alert-{{ 'success' if category == 'success' else 'danger' }} mt-3" role="alert">
+                  {{ message }}
+                </div>
+              {% endfor %}
+            {% endif %}
+          {% endwith %}
+        </div>
+      </div>
+    </main>
+
+    
+    
+    <footer class="site-footer">&copy; 2025 MATERNUM &amp; INFANS — Tous droits réservés.</footer>
+  </div>
+
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</body>
+</html>

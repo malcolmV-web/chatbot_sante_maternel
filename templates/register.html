@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>Inscription — MATERNUM & INFANS</title>
+
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;600;800&family=Poppins:wght@300;600;800&display=swap" rel="stylesheet">
+
+  <!-- Bootstrap -->
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet"/>
+
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+
+  <style>
+    :root{
+      --turquoise:#2AC7C9; --bleu-marine:#183153; --muted:#6b7a94;
+      --card-radius:14px;
+    }
+    html,body{
+      height:100%;margin:0;
+      font-family:"Poppins","Nunito",system-ui,Arial;
+      background:linear-gradient(180deg,#f4fbfb,#f8fdfd);
+      color:var(--bleu-marine);
+    }
+    .page-wrapper{min-height:100vh;display:flex;flex-direction:column;}
+    main.content{flex:1 0 auto;display:flex;align-items:center;justify-content:center;padding:28px;}
+
+    .auth-card{
+      width:100%;
+      max-width:520px;
+      border-radius:var(--card-radius);
+      padding:26px;
+      background:#fff;
+      box-shadow:0 12px 36px rgba(24,49,83,0.06);
+      border:1px solid rgba(24,49,83,0.03);
+    }
+
+    .brand{
+      display:flex;align-items:center;gap:12px;margin-bottom:12px;
+    }
+    .brand-logo{
+      width:44px;height:44px;
+      border-radius:10px;
+      background:linear-gradient(135deg,var(--turquoise), #7BE495);
+      overflow:hidden;
+      display:flex;align-items:center;justify-content:center;
+      box-shadow:0 6px 18px rgba(42,199,201,0.12);
+    }
+
+    .form-control{
+      border-radius:999px;
+      padding:12px 14px;
+      border:1px solid rgba(24,49,83,0.06);
+    }
+    .btn-primary{
+      background:linear-gradient(90deg,var(--turquoise),#0fb5b7);
+      border:0;color:#043238;
+      border-radius:999px;padding:10px 16px;font-weight:700;
+    }
+    footer.site-footer{flex-shrink:0;background:#fff;padding:18px;text-align:center;color:var(--muted);}
+  </style>
+</head>
+<body>
+  <div class="page-wrapper">
+    <main class="content">
+      <div class="auth-card">
+
+       
+        <div class="brand">
+          <div class="brand-logo">
+            <img src="{{ url_for('static', filename='images/sante_maternel.png') }}"
+                 alt="Logo MATERNUM & INFANS"
+                 style="width:100%;height:100%;object-fit:cover;border-radius:10px;">
+          </div>
+          <h2 style="font-weight:800;margin:0;">Créer un compte</h2>
+        </div>
+
+        <p style="font-size:13px;color:var(--muted);margin-top:-4px;">
+          Inscrivez-vous pour accéder à vos outils et rappels.
+        </p>
+
+        <form method="POST" action="{{ url_for('register_user') }}" novalidate>
+
+          <div class="form-group">
+            <label for="username">Nom d'utilisateur</label>
+            <input id="username" name="username" type="text" class="form-control"
+                   required autocomplete="username" placeholder="Choisissez un nom d'utilisateur">
+          </div>
+
+          <div class="form-group">
+            <label for="email">Adresse e-mail</label>
+            <input id="email" name="email" type="email" class="form-control"
+                   required autocomplete="email" placeholder="votre@email.com">
+          </div>
+
+          <div class="form-row">
+            <div class="form-group col-md-6">
+              <label for="password">Mot de passe</label>
+              <input id="password" name="password" type="password" class="form-control"
+                     required autocomplete="new-password" placeholder="Mot de passe">
+            </div>
+
+            <div class="form-group col-md-6">
+              <label for="confirm_password">Confirmer</label>
+              <input id="confirm_password" name="confirm_password" type="password" class="form-control"
+                     required placeholder="Confirmer le mot de passe">
+            </div>
+          </div>
+
+          <button type="submit" class="btn btn-primary btn-block">Créer le compte</button>
+        </form>
+
+        <!-- Flash messages -->
+        <div class="mt-3" aria-live="polite">
+          {% with messages = get_flashed_messages(with_categories=true) %}
+            {% for category, message in messages %}
+              <div class="alert alert-{{ category }} mt-2">{{ message }}</div>
+            {% endfor %}
+          {% endwith %}
+        </div>
+
+        <p class="text-center mt-3" style="font-size:13px;color:var(--muted);">
+          Déjà inscrit ? <a href="{{ url_for('show_login_form') }}">Se connecter</a>
+        </p>
+
+      </div>
+    </main>
+
+    <footer class="site-footer">
+      &copy; 2025 MATERNUM &amp; INFANS — Tous droits réservés.
+    </footer>
+  </div>
+</body>
+</html>

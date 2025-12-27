@@ -1,0 +1,321 @@
+[
+  {
+    "Antigene": "BCG",
+    "Groupes_cibles": {"Enfants": "À la naissance", "Adolescents": "Groupes plus âgés selon risque", "Adultes": "Femmes enceintes (voir note)"},
+    "Age_1ere_dose": "Dès la naissance (le plus tôt possible, <24 h)",
+    "Doses_1eres_series": "1 dose",
+    "Intervalle_entre_doses": {"1ere_2eme": null, "2eme_3eme": null, "3eme_4eme": null},
+    "Vaccination_interrompue": "NA",
+    "Doses_commencement_tardif": {"<=12_mois": "1 dose", ">12_mois": "1 dose"},
+    "Dose_rapel": "Non recommandée",
+    "Observations": [
+      "Stratégie: universelle à la naissance vs sélective selon contexte VIH",
+      "Co-administration possible",
+      "Voir notes programmes pour groupes plus âgés"
+    ],
+    "Recommandations": ["Recommandations pour tous les programmes de vaccination"]
+  },
+  {
+    "Antigene": "Hépatite B",
+    "Groupes_cibles": {"Enfants": "Vaccination néonatale & séries", "Adolescents": "Rattrapage si non vaccinés", "Adultes": "Groupes à risque"},
+    "Age_1ere_dose": "Le plus tôt possible après la naissance (<24 h)",
+    "Doses_1eres_series": "Dose à la naissance + 2 à 3 doses supplémentaires selon schéma (souvent 3 doses au total ; options 3–5 selon contexte)",
+    "Intervalle_entre_doses": {"1ere_2eme": "4 semaines (selon schéma)", "2eme_3eme": "≥14 semaines (selon schéma)", "3eme_4eme": null},
+    "Vaccination_interrompue": "Reprendre sans répéter la dose précédente (voir notes pour les cas particuliers)",
+    "Doses_commencement_tardif": {"<=12_mois": "3 doses (schéma de rattrapage)", ">12_mois": "3 doses (schéma de rattrapage)"},
+    "Dose_rapel": "Non recommandée de routine (voir notes pour groupes spécifiques)",
+    "Observations": [
+      "Options de schéma (prématurés, VIH, nourrissons à risque)",
+      "VPI/VPOb mentionnés pour polio en parallèle"
+    ],
+    "Recommandations": ["Recommandations pour tous les programmes de vaccination"]
+  },
+  {
+    "Antigene": "Polio (VPOb / VPI)",
+    "Groupes_cibles": {"Enfants": "Séries infantile selon schéma national", "Adolescents": "Rattrapage si nécessaire", "Adultes": "Groupes à risque / voyageurs"},
+    "Age_1ere_dose": "VPOb dès 6 semaines ou VPI selon calendrier (options: dose néonatale pour VPOb possible)",
+    "Doses_1eres_series": "3 à 5 doses selon schéma (ex. 3 VPOb + 2 VPI ou schéma mixte/alternatif)",
+    "Intervalle_entre_doses": {"1ere_2eme": "4-8 semaines (selon schéma)", "2eme_3eme": "6-8 semaines (selon schéma)", "3eme_4eme": "variable"},
+    "Vaccination_interrompue": "Reprendre sans répétition de la dose précédente (si interruption courte, sinon voir notes)",
+    "Doses_commencement_tardif": {"<=12_mois": "3–5 doses selon âge et schéma", ">12_mois": "3 doses généralement"},
+    "Dose_rapel": "Si 1er dose à 6 semaines, prévoir rappel ≥ 6 mois après la 3e dose; voir notes pays/risque",
+    "Observations": [
+      "Calendrier alternatif 'tout VPI' possible (fractionné permis pour VPI Salk)",
+      "Choix du vaccin dépend de l’épidémiologie, faisabilité et critères d’importation"
+    ],
+    "Recommandations": ["Recommandations pour tous les programmes de vaccination"]
+  },
+  {
+    "Antigene": "Vaccin contenant DTC (DTCCV)",
+    "Groupes_cibles": {"Enfants": "Série infantile (DTCCV)", "Adolescents": "Rattrapage / Td selon âge", "Adultes": "Schéma selon antécédents vaccinal"},
+    "Age_1ere_dose": "6 semaines (min) selon pays",
+    "Doses_1eres_series": "3 doses (série primaire)",
+    "Intervalle_entre_doses": {"1ere_2eme": "4 semaines (min)", "2eme_3eme": "4 à 8 semaines (min)", "3eme_4eme": "NA"},
+    "Vaccination_interrompue": "Reprendre sans répéter la dose précédente",
+    "Doses_commencement_tardif": {"<=12_mois": "3 doses (rattrapage)", ">12_mois": "3 doses (rattrapage)"},
+    "Dose_rapel": "Rappels recommandés : 12-23 mois (vaccin contenant DTC), 4-7 ans (vaccin contenant Td/DT), 9-15 ans (Td)",
+    "Observations": [
+      "Après 7 ans, préférer vaccin combiné contenant aC/Td selon recommandation",
+      "5 doses correctement espacées confèrent protection à vie si série commencée à l’adolescence/adulte"
+    ],
+    "Recommandations": ["Recommandations pour tous les programmes de vaccination"]
+  },
+  {
+    "Antigene": "Haemophilus influenzae type b (Hib)",
+    "Groupes_cibles": {"Enfants": "Série primaire", "Adolescents": "Rattrapage selon schéma", "Adultes": "Habituellement non recommandé si >5 ans en bonne santé"},
+    "Age_1ere_dose": "6 semaines (min)",
+    "Doses_1eres_series": "2–3 doses selon schéma (ex. 3p+0 ou 2p+1)",
+    "Intervalle_entre_doses": {"1ere_2eme": "4 semaines (min) si 3 doses", "2eme_3eme": "6–28 semaines selon schéma", "3eme_4eme": "NA"},
+    "Vaccination_interrompue": "Reprendre sans répétition de la dose précédente",
+    "Doses_commencement_tardif": {"<=12_mois": "2–3 doses (selon âge et schéma)", ">12_mois": "1–2 doses selon âge et antécédents"},
+    "Dose_rapel": "Possible : rappel à 9–18 mois si schéma 2 doses; rappel supplémentaire pour VIH+/prématurés",
+    "Observations": [
+      "Options de schéma (3p+0 vs 2p+1)",
+      "Choix du vaccin et rattrapage selon contexte"
+    ],
+    "Recommandations": ["Recommandations pour tous les programmes de vaccination"]
+  },
+  {
+    "Antigene": "Pneumocoque conjugué (VPC)",
+    "Groupes_cibles": {"Enfants": "Série primaire (ex. 3 doses)", "Adolescents": "Rattrapage pour groupes à risque", "Adultes": "Groupes à risque selon indication)"},
+    "Age_1ere_dose": "6 semaines (min) souvent",
+    "Doses_1eres_series": "2–3 doses selon schéma (ex. 3p+0 ou 2p+1)",
+    "Intervalle_entre_doses": {"1ere_2eme": "4 semaines (min) si 3 doses", "2eme_3eme": "4 semaines (min) si 3 doses", "3eme_4eme": "NA"},
+    "Vaccination_interrompue": "Reprendre sans répétition de la dose précédente",
+    "Doses_commencement_tardif": {"<=12_mois": "2–3 doses selon schéma", ">12_mois": "1 dose ou schéma de rattrapage selon âge"},
+    "Dose_rapel": "Rappel possible (varie : ex. 9–18 mois ou selon programme)",
+    "Observations": [
+      "Rappels et schémas selon type de VPC et statut VIH/prématurité",
+      "Co-administration avec DTCCV possible"
+    ],
+    "Recommandations": ["Options de schéma: 3p+0 vs 2p+1; choix en fonction du pays"]
+  },
+  {
+    "Antigene": "Rotavirus",
+    "Groupes_cibles": {"Enfants": "Série infantile (2 ou 3 doses selon vaccin)", "Adolescents": "Non recommandé", "Adultes": "Non recommandé"},
+    "Age_1ere_dose": "6–7 semaines (min)",
+    "Doses_1eres_series": "2 doses (Rotarix) ou 3 doses (RotaTeq) selon vaccin",
+    "Intervalle_entre_doses": {"1ere_2eme": "4 semaines (min)", "2eme_3eme": "4 semaines (si 3 doses)", "3eme_4eme": "NA"},
+    "Vaccination_interrompue": "Reprendre sans répétition de la dose précédente",
+    "Doses_commencement_tardif": {"<=12_mois": "2–3 doses selon vaccin", ">12_mois": "Généralement non recommandé (bénéfice limité)"},
+    "Dose_rapel": "NA",
+    "Observations": ["Respect strict des limites d’âge et intervalles; co-administration avec DTCCV"],
+    "Recommandations": ["Recommandations pour tous les programmes de vaccination"]
+  },
+  {
+    "Antigene": "Rougeole",
+    "Groupes_cibles": {"Enfants": "2 doses (souvent 9 ou 12 mois puis rappel)", "Adolescents": "Rattrapage si non vaccinés", "Adultes": "Rattrapage selon risque"},
+    "Age_1ere_dose": "9 ou 12 mois (6 mois min dans certains contextes d’urgence)",
+    "Doses_1eres_series": "2 doses (intervalle min 4 semaines selon schéma)",
+    "Intervalle_entre_doses": {"1ere_2eme": "4 semaines (min)", "2eme_3eme": null, "3eme_4eme": null},
+    "Vaccination_interrompue": "Reprendre sans répétition de la dose précédente",
+    "Doses_commencement_tardif": {"<=12_mois": "2 doses", ">12_mois": "2 doses"},
+    "Dose_rapel": "Non recommandée systématiquement (voir programme national)",
+    "Observations": [
+      "Co-administration possible avec autres vaccins vivants (ex. ROR)",
+      "Considérations particulières en grossesse/immunodéprimés"
+    ],
+    "Recommandations": ["Recommandations pour tous les programmes de vaccination"]
+  },
+  {
+    "Antigene": "Rubéole",
+    "Groupes_cibles": {"Enfants": "1 dose souvent via vaccin combiné (ROR)", "Adolescents": "Rattrapage filles 9–14 ans si non vaccinées", "Adultes": "Rattrapage femmes en âge de procréer si non vaccinées"},
+    "Age_1ere_dose": "9 ou 12 mois (selon calendrier national)",
+    "Doses_1eres_series": "1 dose (souvent incluse dans ROR)",
+    "Intervalle_entre_doses": {"1ere_2eme": null, "2eme_3eme": null, "3eme_4eme": null},
+    "Vaccination_interrompue": "Reprendre sans répétition de la dose précédente",
+    "Doses_commencement_tardif": {"<=12_mois": "1 dose", ">12_mois": "1 dose"},
+    "Dose_rapel": "Non recommandée systématiquement",
+    "Observations": ["Grossesse: attention absolue (vaccin vivant contre-indiqué pendant grossesse)"],
+    "Recommandations": ["Recommandations pour tous les programmes de vaccination"]
+  },
+  {
+    "Antigene": "PVH (HPV)",
+    "Groupes_cibles": {"Enfants": "N/A", "Adolescents": "Cible filles 9–14 ans (rattrapage possible)", "Adultes": "Femmes en âge de procréer si rattrapage)"},
+    "Age_1ere_dose": "Dès 9 ans (selon programme pour filles)",
+    "Doses_1eres_series": "1–2 doses selon âge et schéma national",
+    "Intervalle_entre_doses": {"1ere_2eme": "6–12 mois selon schéma", "2eme_3eme": null, "3eme_4eme": null},
+    "Vaccination_interrompue": "Reprendre sans répétition de la dose précédente",
+    "Doses_commencement_tardif": {"<=12_mois": "N/A", ">12_mois": "1–2 doses selon âge et historique vaccinal"},
+    "Dose_rapel": "Varie selon schéma (voir notes)",
+    "Observations": [
+      "Cible prioritaire: filles 9–14 ans; rattrapage multi-cohort if introduced",
+      "Grossesse: vacciner femmes non vaccinées selon note"
+    ],
+    "Recommandations": ["Recommandations pour tous les programmes de vaccination"]
+  },
+  {
+    "Antigene": "Encéphalite Japonaise",
+    "Groupes_cibles": {"Enfants": "Selon zone (programmes régionaux)", "Adolescents": "Selon zone", "Adultes": "Groupes à risque / voyageurs"},
+    "Age_1ere_dose": "Varie selon type de vaccin : inactivé sur cellules Vero souvent 6 mois; vivant atténué 8 mois; recombinant 9 mois",
+    "Doses_1eres_series": "1–2 doses selon type (généralement 2 pour vaccins inactivés)",
+    "Intervalle_entre_doses": {"1ere_2eme": "4 semaines (varie selon produit)", "2eme_3eme": null, "3eme_4eme": null},
+    "Vaccination_interrompue": "Reprendre sans répétition de la dose précédente",
+    "Doses_commencement_tardif": {"<=12_mois": "2 doses (selon produit)", ">12_mois": "1–2 doses selon produit"},
+    "Dose_rapel": "Au moins un rappel selon produit (ex. tous les 3 ans pour certains)",
+    "Observations": [
+      "Choix du vaccin selon fabricant",
+      "Co-administration et contre-indications selon immuno-situation"
+    ],
+    "Recommandations": ["Recommandations pour certaines régions endémiques"]
+  },
+  {
+    "Antigene": "Fièvre jaune",
+    "Groupes_cibles": {"Enfants": "Dose unique selon calendrier", "Adolescents": "Selon pays", "Adultes": "Voyageurs / zones endémiques"},
+    "Age_1ere_dose": "Souvent après 9–12 mois selon pays (voir notes)",
+    "Doses_1eres_series": "1 dose",
+    "Intervalle_entre_doses": {"1ere_2eme": null, "2eme_3eme": null, "3eme_4eme": null},
+    "Vaccination_interrompue": "Reprendre ou rattraper selon intervalle et notes (voir fabricant/pays)",
+    "Doses_commencement_tardif": {"<=12_mois": "1 dose", ">12_mois": "1 dose (selon recommandation)"},
+    "Dose_rapel": "Rappels selon recommandations nationales / risque (parfois non recommandés si immunité prouvée)",
+    "Observations": [
+      "Vaccin vivant: contre-indications en grossesse et immunodépression",
+      "Cohérence selon régions; parfois co-administration possible"
+    ],
+    "Recommandations": ["Recommandations pour certaines régions"]
+  },
+  {
+    "Antigene": "Encéphalite à tiques (TBE / FSME)",
+    "Groupes_cibles": {"Enfants": "Programmes régionaux ou vaccination ciblée", "Adolescents": "Groupes à risque", "Adultes": "Groupes à risque / voyageurs)"},
+    "Age_1ere_dose": "Varie (≥1 an pour certains vaccins inactivés; ≥3 ans pour certains autres)",
+    "Doses_1eres_series": "Souvent 3 doses (avec intervalles: 1–3 mois entre 1 et 2, puis ~12 mois)",
+    "Intervalle_entre_doses": {"1ere_2eme": "1–3 mois (selon produit)", "2eme_3eme": "12 mois (min)", "3eme_4eme": null},
+    "Vaccination_interrompue": "Reprendre sans répétition si interruption courte; si longue, voir protocole (parfois recommencer)",
+    "Doses_commencement_tardif": {"<=12_mois": "Non applicable (âge min)", ">12_mois": "3 doses selon produit"},
+    "Dose_rapel": "Rappels réguliers (p.ex. tous les 3 ans selon produit)",
+    "Observations": ["Choix du vaccin et calendrier selon fabricant; définir haut risque"],
+    "Recommandations": ["Recommandations pour certaines régions"]
+  },
+  {
+    "Antigene": "Typhoïde (TCV / ViPS / Ty21a)",
+    "Groupes_cibles": {"Enfants": "TCV possible dès 6 mois selon produit; ViPS pour âges plus élevés", "Adolescents": "Rattrapage selon recommandation", "Adultes": "Voyageurs / groupes à risque"},
+    "Age_1ere_dose": "Varie selon produit (TCV: souvent ≥6 mois; ViPS: ≥2 ans; Ty21a: ≥6 ans pour capsules)",
+    "Doses_1eres_series": "1 dose (TCV ou ViPS) ou 3–4 doses pour Ty21a selon schéma oral",
+    "Intervalle_entre_doses": {"1ere_2eme": null, "2eme_3eme": null, "3eme_4eme": null},
+    "Vaccination_interrompue": "Reprendre ou rattraper selon délai depuis dernière dose; rule: si intervalle > seuil, recommencer série",
+    "Doses_commencement_tardif": {"<=12_mois": "Schéma adapté selon produit (voir notes)", ">12_mois": "1 dose (TCV/ViPS) ou schéma Ty21a selon âge)"},
+    "Dose_rapel": "Dose de rappel variable (ViPS/Ty21a: 3–7 ans après primovaccination selon produit)",
+    "Observations": ["Définir haut risque; choix du vaccin selon contexte épidémiologique"],
+    "Recommandations": ["Recommandations pour certaines régions et populations à risque"]
+  },
+  {
+    "Antigene": "Choléra (Dukoral, Shanchol, etc.)",
+    "Groupes_cibles": {"Enfants": "Selon âge min du produit (Dukoral ≥2 ans, Shanchol ≥1 an)", "Adolescents": "Selon recommandations locales", "Adultes": "Voyageurs / zones endémiques"},
+    "Age_1ere_dose": "Varie (Dukoral ≥2 ans; Shanchol ≥1 an ou selon produit)",
+    "Doses_1eres_series": "Dukoral: 2–3 doses selon âge; Shanchol/mORCVAX: 2 doses (intervalle 2 semaines)",
+    "Intervalle_entre_doses": {"1ere_2eme": "2 jours–2 semaines selon produit", "2eme_3eme": "selon produit", "3eme_4eme": null},
+    "Vaccination_interrompue": "Reprendre sans répétition si interruption courte; si rappel tardif > seuil, recommencer",
+    "Doses_commencement_tardif": {"<=12_mois": "Schémas selon produit (souvent non recommandé très jeune)", ">12_mois": "2 doses selon produit"},
+    "Dose_rapel": "Intervalle de rappel selon produit (ex. Dukoral: rappel tous les 2 ans; Shanchol: après 2 ans selon contexte)",
+    "Observations": ["Age minimum; définir haut risque; stratégie selon endémie"],
+    "Recommandations": ["Recommandations pour certaines régions"]
+  },
+  {
+    "Antigene": "Méningocoque (MenA conjugué, MenC, quadrivalent conjugué)",
+    "Groupes_cibles": {"Enfants": "Selon antigène et âge (ex. MenA 9–18 mois)", "Adolescents": "Rattrapage/priorité selon programme", "Adultes": "Groupes à risque / voyageurs"},
+    "Age_1ere_dose": "Varie (MenA: 9–18 mois; MenC: 2–11 mois selon schéma; quadrivalent: selon produit)",
+    "Doses_1eres_series": "1–2 doses selon âge au démarrage (ex. 2 doses si <9 mois avec intervalle 8 semaines)",
+    "Intervalle_entre_doses": {"1ere_2eme": "8 semaines min si <9 mois (ex.)", "2eme_3eme": null, "3eme_4eme": null},
+    "Vaccination_interrompue": "Reprendre sans répétition de la dose précédente",
+    "Doses_commencement_tardif": {"<=12_mois": "Schémas adaptés (p.ex. 2 doses)", ">12_mois": "1–2 doses selon antigène et âge"},
+    "Dose_rapel": "Rappel selon antigène (ex. certains schedules: rappel après 1 an puis selon risque)",
+    "Observations": ["Définir haut risque; choix du vaccin et calendrier selon produit"],
+    "Recommandations": ["Recommandations pour certaines régions et populations à risque"]
+  },
+  {
+    "Antigene": "Hépatite A",
+    "Groupes_cibles": {"Enfants": "Programmes selon pays (vaccins inactivés/vivants)", "Adolescents": "Rattrapage pour populations à risque", "Adultes": "Groupes à risque / voyageurs"},
+    "Age_1ere_dose": "Souvent >12 mois (variable selon produit et pays)",
+    "Doses_1eres_series": "1–2 doses selon type (inactivé: souvent 2 doses; vivant: 1 dose selon produit)",
+    "Intervalle_entre_doses": {"1ere_2eme": "4 semaines (min) à plusieurs mois selon produit", "2eme_3eme": null, "3eme_4eme": null},
+    "Vaccination_interrompue": "Reprendre sans répétition de la dose précédente",
+    "Doses_commencement_tardif": {"<=12_mois": "1–2 doses selon produit", ">12_mois": "1–2 doses selon produit"},
+    "Dose_rapel": "Selon produit et facteurs de risque (par ex. tous les X années si nécessaire)",
+    "Observations": ["Choix du vaccin inactivé vs vivant; stratégies selon risque et âge"],
+    "Recommandations": ["Recommandations pour populations à risque et zones endémiques"]
+  },
+  {
+    "Antigene": "Rage",
+    "Groupes_cibles": {"Enfants": "Personnes exposées/à risque", "Adolescents": "Personnes exposées/à risque", "Adultes": "Personnes exposées/à risque / PEP/PrEP"},
+    "Age_1ere_dose": "Dépend du contexte (exposition) — PEV/PEP selon protocole",
+    "Doses_1eres_series": "2 ou 3 doses selon schéma de primovaccination (pré- ou post-exposition)",
+    "Intervalle_entre_doses": {"1ere_2eme": "7–14 jours selon schéma", "2eme_3eme": "14–28 jours selon schéma", "3eme_4eme": null},
+    "Vaccination_interrompue": "Reprendre selon protocole PEP/PrEP; suivre recommandations spécifiques",
+    "Doses_commencement_tardif": {"<=12_mois": "Adapter selon protocole clinique", ">12_mois": "Adapter selon protocole clinique"},
+    "Dose_rapel": "Rappels selon risque d’exposition",
+    "Observations": ["PEP vs PrEP; définir haut risque; comorbidités influencent décisions"],
+    "Recommandations": ["Recommandations pour populations exposées"]
+  },
+  {
+    "Antigene": "Dengue (TAK-003)",
+    "Groupes_cibles": {"Enfants": "Programmes selon âge minimum (varie selon produit)", "Adolescents": "Cibles selon âge", "Adultes": "Adultes dans zones endémiques selon indication"},
+    "Age_1ere_dose": "Varie (p.ex. ≥2 ans selon produit TAK-003 notes fournies)",
+    "Doses_1eres_series": "Schéma multi-dose (vérifier produit: ex. 2 doses selon protocole)",
+    "Intervalle_entre_doses": {"1ere_2eme": "Varie selon produit", "2eme_3eme": null, "3eme_4eme": null},
+    "Vaccination_interrompue": "Reprendre sans répétition si interruption courte; suivre protocole produit",
+    "Doses_commencement_tardif": {"<=12_mois": "Non recommandé (âge min)", ">12_mois": "Schéma adapté selon âge et statut sérologique)"},
+    "Dose_rapel": "Selon stratégie et produit",
+    "Observations": ["Considérations d’endémicité et priorités; contre-indications selon statut sérologique"],
+    "Recommandations": ["Recommandations pour zones de transmission élevée"]
+  },
+  {
+    "Antigene": "Antipaludique (vaccins en développement/proto.)",
+    "Groupes_cibles": {"Enfants": "Programmes saisonniers ou ciblés selon endémie", "Adolescents": "Programmes selon âge", "Adultes": "Stratégies saisonnières/à risque"},
+    "Age_1ere_dose": "Varie selon formulation (ex. 5 mois dans ton tableau pour certains schémas)",
+    "Doses_1eres_series": "Schémas multiples (p.ex. 3–4 doses selon produit et stratégie saisonnière)",
+    "Intervalle_entre_doses": {"1ere_2eme": "4 semaines (ex)", "2eme_3eme": "selon produit", "3eme_4eme": null},
+    "Vaccination_interrompue": "Reprendre sans répétition de la dose précédente si court délai; sinon recommencer selon protocole",
+    "Doses_commencement_tardif": {"<=12_mois": "Adapter selon produit", ">12_mois": "Adapter selon produit"},
+    "Dose_rapel": "Selon stratégie (saisonnière) et niveaux d’endémicité",
+    "Observations": ["Niveau d’endémicité, choix du vaccin, définition des populations à risque"],
+    "Recommandations": ["Recommandations pour zones de transmission élevée"]
+  },
+  {
+    "Antigene": "Oreillons (M)",
+    "Groupes_cibles": {"Enfants": "2 doses via vaccin combiné ROR", "Adolescents": "Rattrapage si non vaccinés", "Adultes": "Rattrapage selon risque"},
+    "Age_1ere_dose": "12–18 mois (varie selon calendrier national)",
+    "Doses_1eres_series": "2 doses (intervalle 4 semaines min selon produit)",
+    "Intervalle_entre_doses": {"1ere_2eme": "4 semaines – 3 mois selon fabricant", "2eme_3eme": null, "3eme_4eme": null},
+    "Vaccination_interrompue": "Reprendre sans répétition de la dose précédente",
+    "Doses_commencement_tardif": {"<=12_mois": "2 doses (si applicable)", ">12_mois": "2 doses selon protocole)"},
+    "Dose_rapel": "Non recommandé systématiquement",
+    "Observations": ["Co-administration avec Rubeole/Rougeole (vaccin combiné)"],
+    "Recommandations": ["Atteindre couverture ≥80%; priorités selon programme"]
+  },
+  {
+    "Antigene": "Grippe saisonnière (inactivé tri-/quadrivalent)",
+    "Groupes_cibles": {"Enfants": "Primovaccination 2 doses pour enfants <9 ans selon historique", "Adolescents": "1 dose annuelle", "Adultes": "1 dose annuelle pour groupes cibles"},
+    "Age_1ere_dose": "6–24 mois selon produit et recommandation (ex. 6 mois min pour premières doses chez enfants)",
+    "Doses_1eres_series": "2 doses pour la primo-vaccination chez enfants (6 mois–8 ans selon antécédents), 1 dose annuelle ensuite",
+    "Intervalle_entre_doses": {"1ere_2eme": "4 semaines minimum ou selon fabricant", "2eme_3eme": null, "3eme_4eme": null},
+    "Vaccination_interrompue": "Reprendre sans répétition de la dose précédente (sauf règles spécifiques)",
+    "Doses_commencement_tardif": {"<=12_mois": "Adapter selon produit (souvent non recommandé très jeune)", ">12_mois": "1–2 doses selon âge/historique"},
+    "Dose_rapel": "Revaccination annuelle recommandée pour groupes ciblés",
+    "Observations": ["Stratégies saisonnières; populations prioritaires; grossesse et comorbidités à considérer"],
+    "Recommandations": ["Recommandations pour programmes spécifiques et populations à risque"]
+  },
+  {
+    "Antigene": "Varicelle",
+    "Groupes_cibles": {"Enfants": "Primovaccination infantile (ex. 12–18 mois selon pays)", "Adolescents": "Rattrapage si non immunisés", "Adultes": "Rattrapage selon risque"},
+    "Age_1ere_dose": "12–18 mois typiquement (varie selon pays)",
+    "Doses_1eres_series": "1–2 doses selon politique nationale et produit (intervalle 1–3 mois selon fabricant)",
+    "Intervalle_entre_doses": {"1ere_2eme": "4 semaines – 3 mois selon fabricant", "2eme_3eme": null, "3eme_4eme": null},
+    "Vaccination_interrompue": "Reprendre sans répétition si intervalle court; voir notes si interruption prolongée",
+    "Doses_commencement_tardif": {"<=12_mois": "Schéma adapted selon produit (souvent non recommandé <12 mois)", ">12_mois": "1–2 doses selon âge/historique"},
+    "Dose_rapel": "Selon politique nationale (rappels possibles pour groupes spécifiques)",
+    "Observations": ["Co-administration avec autres vaccins vivants; couverture élevée recommandée"],
+    "Recommandations": ["Prioritiser couverture ≥80%; tenir compte grossesse/immunodéprimés"]
+  },
+  {
+    "Antigene": "PNEUMO (autres détails mentionnés dans notes)",
+    "Groupes_cibles": {"Enfants": "Séries précoces", "Adolescents": "Rattrapage pour groupes à risque", "Adultes": "Groupes à risque (personnes âgées, comorbidités)"},
+    "Age_1ere_dose": "6 semaines (min) ou selon calendrier national",
+    "Doses_1eres_series": "2–3 doses selon schéma (3p+0 ou 2p+1)",
+    "Intervalle_entre_doses": {"1ere_2eme": "4 semaines min", "2eme_3eme": "4 semaines min si 3 doses", "3eme_4eme": null},
+    "Vaccination_interrompue": "Reprendre sans répétition",
+    "Doses_commencement_tardif": {"<=12_mois": "2–3 doses selon schéma", ">12_mois": "1 dose ou schéma adapté"},
+    "Dose_rapel": "Selon schéma (variable)",
+    "Observations": ["Voir notes pour choix du vaccin et rappels pour prématurés/VIH+"],
+    "Recommandations": ["Voir recommandations nationales"]
+  }
+]

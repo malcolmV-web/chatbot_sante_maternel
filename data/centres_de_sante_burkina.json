@@ -1,0 +1,351 @@
+{
+  "regions": [
+    {
+      "region": "Boucle du Mouhoun",
+      "communes": [
+        {
+          "commune": "Bondoukuy",
+          "formations": [
+            {"nom": "CSPS Bondoukuy", "type": "CSPS", "commune": "Bondoukuy"},
+            {"nom": "CSPS Bouénévouhoun", "type": "CSPS", "commune": "Bondoukuy"},
+            {"nom": "CSPS Dora", "type": "CSPS", "commune": "Bondoukuy"},
+            {"nom": "CSPS Kéra", "type": "CSPS", "commune": "Bondoukuy"},
+            {"nom": "CSPS Koumana", "type": "CSPS", "commune": "Bondoukuy"},
+            {"nom": "CSPS Ouakara", "type": "CSPS", "commune": "Bondoukuy"},
+            {"nom": "CSPS Wakuy", "type": "CSPS", "commune": "Bondoukuy"}
+          ]
+        },
+        {
+          "commune": "Dédougou Urbain",
+          "formations": [
+            {"nom": "CHR Dédougou", "type": "CHR", "commune": "Dédougou"},
+            {"nom": "CM Communal Dédougou", "type": "CM", "commune": "Dédougou"},
+            {"nom": "CSPS Kari", "type": "CSPS", "commune": "Dédougou"},
+            {"nom": "CSPS Karo", "type": "CSPS", "commune": "Dédougou"},
+            {"nom": "CSPS Passakongo", "type": "CSPS", "commune": "Dédougou"},
+            {"nom": "CSPS Soukuy", "type": "CSPS", "commune": "Dédougou"},
+            {"nom": "CSPS Tionkuy", "type": "CSPS", "commune": "Dédougou"}
+          ]
+        },
+        {
+          "commune": "Douroula",
+          "formations": [
+            {"nom": "CSPS Bladi", "type": "CSPS", "commune": "Douroula"},
+            {"nom": "CSPS Douroula", "type": "CSPS", "commune": "Douroula"}
+          ]
+        },
+        {
+          "commune": "Kona",
+          "formations": [
+            {"nom": "CSPS Kona", "type": "CSPS", "commune": "Kona"},
+            {"nom": "CSPS Dangouma", "type": "CSPS", "commune": "Kona"},
+            {"nom": "CSPS Koana", "type": "CSPS", "commune": "Kona"},
+            {"nom": "CSPS Lah", "type": "CSPS", "commune": "Kona"}
+          ]
+        },
+        {
+          "commune": "Ouarkoye",
+          "formations": [
+            {"nom": "CSPS Doudou", "type": "CSPS", "commune": "Ouarkoye"},
+            {"nom": "CSPS Fakéna", "type": "CSPS", "commune": "Ouarkoye"},
+            {"nom": "CSPS Ouarkoye", "type": "CSPS", "commune": "Ouarkoye"},
+            {"nom": "CSPS Poundou", "type": "CSPS", "commune": "Ouarkoye"}
+          ]
+        },
+        {
+          "commune": "Safané",
+          "formations": [
+            {"nom": "CSPS Datomo", "type": "CSPS", "commune": "Safané"},
+            {"nom": "CSPS Nounou", "type": "CSPS", "commune": "Safané"},
+            {"nom": "CSPS Silaro", "type": "CSPS", "commune": "Safané"}
+          ]
+        },
+        {
+          "commune": "Tchériba",
+          "formations": [
+            {"nom": "CSPS Oualou", "type": "CSPS", "commune": "Tchériba"},
+            {"nom": "CSPS Tchériba", "type": "CSPS", "commune": "Tchériba"},
+            {"nom": "CSPS Tikan", "type": "CSPS", "commune": "Tchériba"},
+            {"nom": "CSPS Tierkou", "type": "CSPS", "commune": "Tchériba"},
+            {"nom": "CSPS Tissé", "type": "CSPS", "commune": "Tchériba"}
+          ]
+        }
+      ]
+    },
+
+    {
+      "region": "Cascades",
+      "communes": [
+        {
+          "commune": "Banfora",
+          "formations": [
+            {"nom": "CHR Banfora", "type": "CHR"},
+            {"nom": "CMA Banfora", "type": "CMA"},
+            {"nom": "CM Banfora", "type": "CM"},
+            {"nom": "CSPS Bounouna", "type": "CSPS"},
+            {"nom": "CSPS Flantama", "type": "CSPS"},
+            {"nom": "CSPS Karfiguéla", "type": "CSPS"},
+            {"nom": "CSPS Siniena", "type": "CSPS"},
+            {"nom": "CSPS Tengrela", "type": "CSPS"},
+            {"nom": "CSPS Tiekouna", "type": "CSPS"},
+            {"nom": "CSPS Toumousseni", "type": "CSPS"},
+            {"nom": "CSPS Diarabakoko", "type": "CSPS"}
+          ]
+        },
+        {
+          "commune": "Beregadougou",
+          "formations": [
+            {"nom": "CSPS Beregadougou", "type": "CSPS"}
+          ]
+        },
+        {
+          "commune": "Moussodougou",
+          "formations": [
+            {"nom": "CSPS Moussodougou", "type": "CSPS"},
+            {"nom": "CSPS Mondon", "type": "CSPS"}
+          ]
+        },
+        {
+          "commune": "Niangoloko",
+          "formations": [
+            {"nom": "CSPS Koutoura", "type": "CSPS"},
+            {"nom": "CSPS Niangoloko", "type": "CSPS"},
+            {"nom": "CSPS Nofesso", "type": "CSPS"},
+            {"nom": "CSPS Ouangolodougou", "type": "CSPS"},
+            {"nom": "CSPS Secteur 5 Ngk", "type": "CSPS"},
+            {"nom": "CSPS Secteur 3 Ngk", "type": "CSPS"},
+            {"nom": "CSPS Yendéré", "type": "CSPS"},
+            {"nom": "CSPS Folonzo", "type": "CSPS"}
+          ]
+        }
+      ]
+    },
+
+    {
+      "region": "Centre",
+      "communes": [
+        {
+          "commune": "Baskuy",
+          "formations": [
+            {"nom": "CHU Yalgado", "type": "CHU"},
+            {"nom": "CMA Samandin", "type": "CMA"},
+            {"nom": "CSPS Gounghin", "type": "CSPS"},
+            {"nom": "CSPS Secteur 3", "type": "CSPS"},
+            {"nom": "CSPS Secteur 8", "type": "CSPS"},
+            {"nom": "CSPS Secteur 10", "type": "CSPS"},
+            {"nom": "CSPS Pogbi", "type": "CSPS"},
+            {"nom": "CSPS Secteur 12", "type": "CSPS"},
+            {"nom": "Dispensaire Larlé", "type": "Dispensaire"}
+          ]
+        },
+
+        {
+          "commune": "Bogodogo",
+          "formations": [
+            {"nom": "CHU Pédiatrique", "type": "CHU"},
+            {"nom": "CMA St Camille", "type": "CMA"},
+            {"nom": "CSPS Balkoui", "type": "CSPS"},
+            {"nom": "CSPS Trame d’Accueil", "type": "CSPS"},
+            {"nom": "CSPS Dassasgho", "type": "CSPS"},
+            {"nom": "CSPS Secteur 28", "type": "CSPS"},
+            {"nom": "CSPS Secteur 30", "type": "CSPS"},
+            {"nom": "CSPS Nomwende", "type": "CSPS"},
+            {"nom": "CSPS Wemtenga", "type": "CSPS"},
+            {"nom": "Dispensaire Juvenat Fille", "type": "Dispensaire"}
+          ]
+        },
+
+        {
+          "commune": "Saaba",
+          "formations": [
+            {"nom": "CSPS Gampela", "type": "CSPS"},
+            {"nom": "CSPS Koala", "type": "CSPS"},
+            {"nom": "CSPS Manegsombo", "type": "CSPS"},
+            {"nom": "CSPS Nioko 1", "type": "CSPS"},
+            {"nom": "CSPS Tanghin", "type": "CSPS"},
+            {"nom": "CSPS Gonse", "type": "CSPS"}
+          ]
+        },
+
+        {
+          "commune": "Boulmiougou",
+          "formations": [
+            {"nom": "CMA Pissy", "type": "CMA"},
+            {"nom": "CSPS Secteur 16", "type": "CSPS"},
+            {"nom": "CSPS Nagrin", "type": "CSPS"},
+            {"nom": "CSPS Secteur 18", "type": "CSPS"},
+            {"nom": "CSPS Boassa", "type": "CSPS"},
+            {"nom": "CSPS Zagtouli", "type": "CSPS"},
+            {"nom": "CSPS Sandogo", "type": "CSPS"},
+            {"nom": "Dispensaire Pissy 17", "type": "Dispensaire"}
+          ]
+        },
+
+        {
+          "commune": "Komsilga",
+          "formations": [
+            {"nom": "CSPS Bazoulé", "type": "CSPS"},
+            {"nom": "CSPS Doundoulma", "type": "CSPS"},
+            {"nom": "CSPS Zékounga", "type": "CSPS"},
+            {"nom": "CSPS Lougsi", "type": "CSPS"},
+            {"nom": "CSPS Sané", "type": "CSPS"},
+            {"nom": "Dispensaire Koudiéré", "type": "Dispensaire"}
+          ]
+        }
+      ]
+    },
+
+    {
+      "region": "Centre-Est",
+      "communes": [
+        {
+          "commune": "Bagré",
+          "formations": [
+            {"nom": "CSPS Bagré Périmètre", "type": "CSPS"},
+            {"nom": "CSPS Bagré Village", "type": "CSPS"},
+            {"nom": "CSPS Guingalé", "type": "CSPS"},
+            {"nom": "CSPS Bégassé", "type": "CSPS"},
+            {"nom": "CSPS Zabo", "type": "CSPS"}
+          ]
+        },
+        {
+          "commune": "Bissiga",
+          "formations": [
+            {"nom": "CSPS Bissiga", "type": "CSPS"}
+          ]
+        },
+        {
+          "commune": "Tenkodogo",
+          "formations": [
+            {"nom": "CHR Tenkodogo", "type": "CHR"},
+            {"nom": "CMA Tenkodogo", "type": "CMA"},
+            {"nom": "CSPS Urbain I", "type": "CSPS"},
+            {"nom": "CSPS Urbain II", "type": "CSPS"},
+            {"nom": "CSPS Loanga", "type": "CSPS"},
+            {"nom": "CSPS Moaga", "type": "CSPS"},
+            {"nom": "CSPS Soumagou", "type": "CSPS"}
+          ]
+        }
+      ]
+    },
+
+    {
+      "region": "Centre-Nord",
+      "communes": [
+        {
+          "commune": "Boussouma",
+          "formations": [
+            {"nom": "CSPS Niniogo", "type": "CSPS"},
+            {"nom": "CSPS Tagalla", "type": "CSPS"},
+            {"nom": "CSPS Louda", "type": "CSPS"}
+          ]
+        },
+        {
+          "commune": "Kaya",
+          "formations": [
+            {"nom": "CHR Kaya", "type": "CHR"},
+            {"nom": "CMA Kaya", "type": "CMA"},
+            {"nom": "CSPS Secteur 1", "type": "CSPS"},
+            {"nom": "CSPS Secteur 6", "type": "CSPS"},
+            {"nom": "CSPS Namsigui", "type": "CSPS"}
+          ]
+        },
+        {
+          "commune": "Korsimoro",
+          "formations": [
+            {"nom": "CSPS Imiougou", "type": "CSPS"},
+            {"nom": "CSPS Sabouri", "type": "CSPS"},
+            {"nom": "CSPS Korsimoro", "type": "CSPS"}
+          ]
+        }
+      ]
+    },
+
+    {
+      "region": "Centre-Ouest",
+      "communes": [
+        {
+          "commune": "Koudougou",
+          "formations": [
+            {"nom": "CHR Koudougou", "type": "CHR"},
+            {"nom": "CMA Koudougou", "type": "CMA"},
+            {"nom": "CSPS Secteur 5", "type": "CSPS"},
+            {"nom": "CSPS Secteur 8", "type": "CSPS"},
+            {"nom": "CSPS Doulou", "type": "CSPS"},
+            {"nom": "CSPS Saria", "type": "CSPS"}
+          ]
+        },
+        {
+          "commune": "Poa",
+          "formations": [
+            {"nom": "CSPS Poa", "type": "CSPS"},
+            {"nom": "CSPS Niakado", "type": "CSPS"},
+            {"nom": "CSPS Gogo", "type": "CSPS"}
+          ]
+        }
+      ]
+    },
+
+    {
+      "region": "Est",
+      "communes": [
+        {
+          "commune": "Fada N’Gourma",
+          "formations": [
+            {"nom": "CHR Fada", "type": "CHR"},
+            {"nom": "CSPS Namoungou", "type": "CSPS"},
+            {"nom": "CSPS Urbain 1", "type": "CSPS"},
+            {"nom": "CSPS Urbain 2", "type": "CSPS"},
+            {"nom": "CSPS Kaoré", "type": "CSPS"},
+            {"nom": "CSPS Natiaboani", "type": "CSPS"},
+            {"nom": "CSPS Tanwalbougou", "type": "CSPS"}
+          ]
+        },
+        {
+          "commune": "Diapangou",
+          "formations": [
+            {"nom": "CSPS Balga", "type": "CSPS"},
+            {"nom": "CSPS Diapangou", "type": "CSPS"},
+            {"nom": "CSPS Moodre", "type": "CSPS"}
+          ]
+        },
+        {
+          "commune": "Yamba",
+          "formations": [
+            {"nom": "CSPS Nayouri", "type": "CSPS"},
+            {"nom": "CSPS Yamba", "type": "CSPS"}
+          ]
+        }
+      ]
+    },
+
+    {
+      "region": "Hauts-Bassins",
+      "communes": [
+        {
+          "commune": "Dafra",
+          "formations": [
+            {"nom": "CMA Dafra", "type": "CMA"},
+            {"nom": "CM Bobo", "type": "CM"},
+            {"nom": "CSPS Guimbi", "type": "CSPS"},
+            {"nom": "CSPS Ouézzin-ville", "type": "CSPS"},
+            {"nom": "CSPS Secteur 24", "type": "CSPS"},
+            {"nom": "CSPS Secteur 25", "type": "CSPS"},
+            {"nom": "CSPS Tounouma", "type": "CSPS"},
+            {"nom": "CSPS Bolomakoté", "type": "CSPS"},
+            {"nom": "CSPS Sarfalao", "type": "CSPS"},
+            {"nom": "CSPS Baré", "type": "CSPS"},
+            {"nom": "CSPS Kotédougou", "type": "CSPS"},
+            {"nom": "CSPS Sogossagasso", "type": "CSPS"},
+            {"nom": "CSPS Yéguéresso", "type": "CSPS"},
+            {"nom": "CSPS Kouentou", "type": "CSPS"},
+            {"nom": "CSPS Léguéma", "type": "CSPS"},
+            {"nom": "CSPS Moukouma", "type": "CSPS"},
+            {"nom": "CSPS Panamasso", "type": "CSPS"},
+            {"nom": "CSPS Santidougou", "type": "CSPS"}
+          ]
+        }
+      ]
+    }
+  ]
+}

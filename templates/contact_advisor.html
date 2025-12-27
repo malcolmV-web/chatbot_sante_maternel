@@ -1,0 +1,229 @@
+{# templates/contact_advisor.html #}
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Contactez un Conseiller Médical — MATERNUM & INFANS</title>
+
+  <!-- Google fonts (Poppins + Nunito) -->
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;600;800&family=Poppins:wght@300;600;800&display=swap" rel="stylesheet">
+
+  <!-- Bootstrap + FontAwesome -->
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"/>
+
+  <!-- Optional: if you prefer external common css, keep this; otherwise styles below are self-contained -->
+  <!-- <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}"> -->
+
+  <style>
+    :root{
+      --turquoise: #2AC7C9;
+      --cyan: #4FC3E8;
+      --vert-clair: #7BE495;
+      --bleu-marine: #183153;
+      --orange: #FFB86C;
+      --bg-soft: #F7FBFA;
+      --card-radius: 16px;
+      --btn-radius: 999px;
+      --shadow-md: 0 10px 26px rgba(24,49,83,0.06);
+    }
+
+    /* Base layout & typography */
+    html,body{
+      width:100%;
+      height:100%;
+      margin:0;
+      padding:0;
+      box-sizing:border-box;
+      overflow-x:hidden;
+      background: linear-gradient(180deg, #f4fbfb 0%, #f8fdfd 100%);
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+      font-family: "Poppins", "Nunito", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+      color:var(--bleu-marine);
+    }
+    *, *::before, *::after { box-sizing: inherit; }
+
+    /* Page wrapper to keep footer at bottom */
+    .page-wrapper { min-height: 100vh; display:flex; flex-direction:column; }
+    main.content { flex: 1 0 auto; padding: 24px 16px; }
+
+    footer {
+      flex-shrink: 0;
+      background:#fff;
+      padding:18px;
+      text-align:center;
+      color:#6b7a94;
+      font-size:14px;
+    }
+
+    /* Card / form */
+    .container-card, .card-wrap{
+      max-width: 720px;
+      margin: 4vh auto;
+      padding: 22px;
+      border-radius: var(--card-radius);
+      background: linear-gradient(180deg, rgba(255,255,255,0.98), #fff);
+      box-shadow: var(--shadow-md);
+      border: 1px solid rgba(24,49,83,0.03);
+    }
+    h3 { font-weight:800; color:var(--bleu-marine); margin-bottom:18px; text-align:center; }
+
+    .form-control {
+      border-radius: 12px;
+      padding: 10px 12px;
+      border: 1px solid rgba(24,49,83,0.06);
+    }
+    textarea.form-control { min-height:120px; }
+
+    .btn-pill { border-radius: var(--btn-radius); padding: 10px 18px; font-weight:700; }
+    .btn-primary.btn-pill {
+      background: linear-gradient(90deg,var(--turquoise), #0babae);
+      border: none;
+      color: #043238;
+      box-shadow: 0 10px 24px rgba(42,199,201,0.10);
+    }
+    .btn-primary:disabled { opacity:.75; cursor:not-allowed; }
+
+    .form-text { color:#6b7a94; }
+    .feedback { margin-top:14px; min-height:40px; }
+
+    /* Floating actions basic */
+    .floating-menu{ position:fixed; right:18px; bottom:18px; display:flex; flex-direction:column; gap:12px; align-items:flex-end; z-index:9999; }
+    .mini-menu { display:none; }
+
+    @media (max-width:680px){
+      .container-card{ margin: 4vh 12px; padding:16px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="page-wrapper">
+    <main class="content" role="main">
+      <div class="container-card" role="form" aria-labelledby="contact-title">
+        <h3 id="contact-title">Contactez un Conseiller Médical</h3>
+
+        {# Remplissage depuis session si disponible (injection via app.context_processor) #}
+        <form id="contactForm" novalidate autocomplete="off" aria-describedby="feedback" role="form">
+          <div class="form-group">
+            <label for="phone_number">Numéro de téléphone</label>
+            <input type="tel" class="form-control" id="phone_number" name="phone_number"
+                   placeholder="+2265412XXXX" required aria-required="true" aria-label="Numéro de téléphone">
+            <small class="form-text">Format international recommandé (ex: +2265412XXXX).</small>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group col-md-6">
+              <label for="name">Nom</label>
+              <input type="text" class="form-control" id="name" name="name" required
+                     placeholder="Votre nom complet" aria-label="Nom"
+                     value="{{ current_user if current_user is string else '' }}">
+            </div>
+            <div class="form-group col-md-6">
+              <label for="email">Email</label>
+              <input type="email" class="form-control" id="email" name="email" required
+                     placeholder="exemple@domaine.com" aria-label="Email"
+                     value="{{ session.get('user_email','') if session.get('user_email') else '' }}">
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="message">Message</label>
+            <textarea class="form-control" id="message" name="message" rows="5" required
+                      placeholder="Décrivez votre demande..." aria-label="Message"></textarea>
+          </div>
+
+          <button id="submitBtn" type="submit" class="btn btn-primary btn-block btn-pill" aria-live="polite" aria-busy="false">
+            <span id="btnText">Envoyer</span>
+            <span id="btnSpinner" class="spinner-border spinner-border-sm" role="status" aria-hidden="true" style="display:none;"></span>
+          </button>
+
+          <div id="feedback" class="feedback" role="status" aria-live="polite"></div>
+        </form>
+      </div>
+    </main>
+
+    <footer class="site-footer">
+      &copy; 2025 MATERNUM &amp; INFANS — Tous droits réservés.
+    </footer>
+  </div>
+
+  {# Floating mini menu: inclusion sûre (masque la page active) #}
+  {% include '_floating_menu.html' %}
+
+  <!-- jQuery (utilisé dans ce template pour simplicité) -->
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+  <script>
+    (function(){
+      // helper: validation simple du numéro (international)
+      function validatePhone(phone){
+        return /^\+?\d{8,15}$/.test((phone||'').trim());
+      }
+
+      function showFeedback(type, text){
+        const $f = $('#feedback');
+        const cls = type === 'success' ? 'alert alert-success' : 'alert alert-danger';
+        $f.html('<div class="'+cls+'">'+ text +'</div>');
+      }
+
+      $('#contactForm').on('submit', function(e){
+        e.preventDefault();
+        $('#feedback').html('');
+        const $btn = $('#submitBtn');
+        const $btnText = $('#btnText');
+        const $spinner = $('#btnSpinner');
+
+        const phone_number = $('#phone_number').val().trim();
+        const name = $('#name').val().trim();
+        const email = $('#email').val().trim();
+        const message = $('#message').val().trim();
+
+        // Client-side quick validation
+        if (!phone_number || !name || !email || !message) {
+          showFeedback('error', 'Veuillez remplir tous les champs.');
+          return;
+        }
+        if (!validatePhone(phone_number)) {
+          showFeedback('error', 'Format du numéro invalide. Utilisez le format international, ex: +2265412XXXX.');
+          return;
+        }
+
+        // disable button + spinner
+        $btn.prop('disabled', true).attr('aria-busy','true');
+        $btnText.hide(); $spinner.show();
+
+        $.ajax({
+          url: '/contact_advisor',
+          method: 'POST',
+          contentType: 'application/json',
+          data: JSON.stringify({ phone_number, name, email, message }),
+          success: function(resp) {
+            if (resp && resp.message) {
+              showFeedback('success', resp.message);
+              $('#contactForm')[0].reset();
+            } else {
+              showFeedback('error', 'Réponse inattendue du serveur.');
+            }
+          },
+          error: function(xhr) {
+            // handle unauthorized explicitly
+            if (xhr && xhr.status === 401) {
+              showFeedback('error', 'Vous devez être connecté pour contacter un conseiller. Veuillez vous connecter.');
+              return;
+            }
+            let msg = 'Une erreur est survenue. Veuillez réessayer plus tard.';
+            if (xhr && xhr.responseJSON && xhr.responseJSON.error) msg = xhr.responseJSON.error;
+            showFeedback('error', msg);
+          },
+          complete: function() {
+            $btn.prop('disabled', false).attr('aria-busy','false');
+            $btnText.show(); $spinner.hide();
+          }
+        });
+      });
+    })();
+  </script>
+</body>
+</html>

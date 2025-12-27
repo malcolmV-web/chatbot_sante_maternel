@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Ajouter un Rappel - MATERNUM &amp; INFANS</title>
+
+  <!-- Google Fonts: Poppins + Nunito -->
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;600;800&family=Poppins:wght@300;600;800&display=swap" rel="stylesheet">
+
+  <!-- Bootstrap + FontAwesome -->
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet"/>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"/>
+
+  <style>
+    :root{
+      --turquoise: #2AC7C9;
+      --cyan: #4FC3E8;
+      --vert-clair: #7BE495;
+      --bleu-marine: #183153;
+      --muted: #6b7a94;
+      --card-radius: 16px;
+      --btn-radius: 999px;
+      --shadow-md: 0 10px 26px rgba(24,49,83,0.06);
+    }
+
+    /* Base layout & typography */
+    html,body{
+      width:100%;
+      height:100%;
+      margin:0;
+      padding:0;
+      box-sizing:border-box;
+      overflow-x:hidden;
+      background: linear-gradient(180deg, #f4fbfb 0%, #f8fdfd 100%);
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+      font-family: "Poppins", "Nunito", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+      color:var(--bleu-marine);
+    }
+    *, *::before, *::after { box-sizing: inherit; }
+
+    /* Page structure */
+    .page-wrapper { min-height: 100vh; display:flex; flex-direction:column; }
+    main.content { flex: 1 0 auto; padding: 28px 16px; }
+    footer.site-footer { flex-shrink:0; background:#fff; padding:18px; text-align:center; color:var(--muted); }
+
+    /* Card / form */
+    .card-wrap{
+      max-width: 720px;
+      margin: 4vh auto;
+      padding: 22px;
+      border-radius: var(--card-radius);
+      background: linear-gradient(180deg, rgba(255,255,255,0.98), #fff);
+      box-shadow: var(--shadow-md);
+      border: 1px solid rgba(24,49,83,0.03);
+    }
+
+    h3 { font-weight:800; margin-bottom:18px; text-align:center; color:var(--bleu-marine); }
+
+    .btn-pill {
+      border-radius: var(--btn-radius);
+      padding: 12px 18px;
+      font-weight:700;
+    }
+    .btn-primary.btn-pill {
+      background: linear-gradient(90deg,var(--turquoise), #0babae);
+      border: none;
+      color: #043238;
+      box-shadow: 0 10px 24px rgba(42,199,201,0.10);
+    }
+
+    .form-text { color: var(--muted); }
+    .feedback { min-height:36px; margin-top:12px; }
+
+    /* Floating menu helpers (styles cohérents avec le reste) */
+    .floating-menu{ position:fixed; right:18px; bottom:18px; display:flex; flex-direction:column; gap:12px; align-items:flex-end; z-index:9999; }
+    .mini-menu { background: white; border-radius: 14px; box-shadow: 0 14px 40px rgba(24,49,83,0.12); padding: 8px; min-width:220px; display:none; border:1px solid rgba(24,49,83,0.06); }
+
+    @media (max-width:680px){
+      .card-wrap{ margin: 4vh 12px; padding:16px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="page-wrapper">
+    <main class="content" role="main" aria-labelledby="pageTitle">
+      <div class="card-wrap" role="region" aria-labelledby="pageTitleInner">
+        <h3 id="pageTitleInner">Ajouter un Rappel</h3>
+
+        <form id="reminderForm" novalidate aria-describedby="feedback" autocomplete="off">
+          <div class="form-group">
+            <label for="phone_number">Numéro de téléphone</label>
+            <input
+              type="tel"
+              id="phone_number"
+              class="form-control"
+              name="phone_number"
+              placeholder="+2265412XXXX"
+              required
+              inputmode="tel"
+              pattern="^\+?\d{8,15}$"
+              aria-required="true"
+            />
+            <small class="form-text text-muted">Format international recommandé (ex: +2265412XXXX).</small>
+          </div>
+
+          <div class="form-group">
+            <label for="reminder_type">Type de rappel</label>
+            <select id="reminder_type" class="form-control" name="reminder_type" required aria-required="true">
+              <option value="">-- Choisir --</option>
+              <option value="prénatale">Visite prénatale</option>
+              <option value="postnatale">Visite postnatale</option>
+              <option value="vaccination">Vaccination</option>
+              <option value="autre">Autre</option>
+            </select>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group col-md-8">
+              <label for="reminder_date">Date du rappel</label>
+              <input type="date" id="reminder_date" class="form-control" name="reminder_date" required aria-required="true" />
+            </div>
+            <div class="form-group col-md-4">
+              <label for="reminder_time">Heure</label>
+              <input type="time" id="reminder_time" class="form-control" name="reminder_time" value="09:00" />
+            </div>
+          </div>
+
+          <button type="submit" id="submitBtn" class="btn btn-primary btn-block btn-pill" aria-live="polite" aria-busy="false">
+            <span id="btnText">Ajouter le rappel</span>
+            <span id="btnSpinner" class="spinner-border spinner-border-sm" style="display:none;" role="status" aria-hidden="true"></span>
+          </button>
+
+          <div id="feedback" class="feedback" role="status" aria-live="polite"></div>
+        </form>
+      </div>
+    </main>
+
+    <footer class="site-footer">
+      &copy; 2025 MATERNUM &amp; INFANS — Tous droits réservés.
+    </footer>
+  </div>
+
+  {# floating menu inclus — le template _floating_menu.html vérifie availability & endpoint #}
+  {% include '_floating_menu.html' %}
+
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script>
+    (function(){
+      const PHONE_RE = /^\+?\d{8,15}$/;
+
+      function showFeedback(type, text) {
+        const cls = type === 'success' ? 'alert alert-success' : 'alert alert-danger';
+        $('#feedback').html('<div class="'+cls+'">'+text+'</div>');
+      }
+
+      function isFutureDate(dateStr) {
+        if (!dateStr) return false;
+        const d = new Date(dateStr);
+        const today = new Date(); today.setHours(0,0,0,0);
+        return d >= today;
+      }
+
+      $('#reminderForm').on('submit', function(e){
+        e.preventDefault();
+        $('#feedback').html('');
+
+        const phone = $('#phone_number').val().trim();
+        const type = $('#reminder_type').val();
+        const date = $('#reminder_date').val();
+        const time = $('#reminder_time').val() || "09:00";
+
+        if (!phone || !type || !date) {
+          showFeedback('error', 'Veuillez remplir tous les champs obligatoires.');
+          return;
+        }
+        if (!PHONE_RE.test(phone)) {
+          showFeedback('error', 'Format du numéro invalide. Ex: +2265412XXXX.');
+          return;
+        }
+        if (!isFutureDate(date)) {
+          showFeedback('error', 'Veuillez choisir une date égale ou postérieure à aujourd\'hui.');
+          return;
+        }
+
+        const btn = $('#submitBtn');
+        btn.prop('disabled', true).attr('aria-busy', 'true');
+        $('#btnText').hide(); $('#btnSpinner').show();
+
+        fetch('/set_reminder', {
+          method: 'POST',
+          headers: {'Content-Type': 'application/json'},
+          body: JSON.stringify({
+            name: '',   // le serveur peut compléter depuis la session si besoin
+            type: type,
+            date: date,
+            time: time,
+            phone: phone
+          })
+        })
+        .then(async res => {
+          const data = await res.json().catch(()=>({}));
+          if (!res.ok) throw data;
+          showFeedback('success', data.message || 'Rappel enregistré.');
+          $('#reminderForm')[0].reset();
+        })
+        .catch(err => {
+          const errMsg = err && err.error ? err.error : (err && err.message ? err.message : 'Erreur serveur. Réessayez.');
+          showFeedback('error', errMsg);
+          console.error('set_reminder error:', err);
+        })
+        .finally(()=> {
+          btn.prop('disabled', false).attr('aria-busy', 'false');
+          $('#btnText').show(); $('#btnSpinner').hide();
+        });
+      });
+    })();
+  </script>
+</body>
+</html>

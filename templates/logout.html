@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Déconnexion - Chatbot Santé</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <style>
+        body {
+            background-color: #f8f9fa;
+        }
+        .logout-card {
+            border-radius: 10px;
+            padding: 40px 30px;
+            background: #ffffff;
+            box-shadow: 0 0 20px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+        .logout-title {
+            color: #dc3545;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+        .btn-custom {
+            margin-top: 15px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="d-flex justify-content-center align-items-center" style="min-height: 100vh;">
+        <div class="col-md-6 col-lg-4 logout-card">
+            <h2 class="logout-title">Vous êtes déconnecté(e)</h2>
+            <p>Merci d’avoir utilisé notre plateforme.</p>
+
+            <a href="{{ url_for('show_login_form') }}" class="btn btn-primary btn-block btn-custom">
+                Se connecter
+            </a>
+
+            <a href="{{ url_for('home') }}" class="btn btn-secondary btn-block btn-custom">
+                Retour à l'accueil
+            </a>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS & jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

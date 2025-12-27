@@ -1,0 +1,457 @@
+<!-- {# templates/_floating_menu.html #}
+{# Floating menu sécurisé : utilise `safe_url` et `available_endpoints` pour éviter les BuildError.
+   Masque l'option correspondant à la page active (request.endpoint). #}
+
+<style>
+  .floating-menu {
+    position: fixed;
+    right: 18px;
+    bottom: 18px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    align-items: flex-end;
+    z-index: 9999;
+    font-family: inherit;
+  }
+  .float-btn {
+    width:64px; height:64px; border-radius:50%;
+    display:flex;align-items:center;justify-content:center;
+    color:white;background:var(--turquoise, #2AC7C9); border:none;
+    box-shadow: 0 12px 30px rgba(44,199,201,0.18); cursor:pointer; font-size:20px;
+  }
+  .mini-toggle {
+    width:48px;height:48px;border-radius:12px;background:white;color:var(--bleu-marine, #183153);
+    display:flex;align-items:center;justify-content:center;border:1px solid rgba(24,49,83,0.06);
+    box-shadow: 0 8px 20px rgba(24,49,83,0.05); cursor:pointer;
+  }
+  .mini-menu {
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 14px 40px rgba(24,49,83,0.12);
+    padding: 8px;
+    min-width: 220px;
+    display: none; /* shown via JS */
+    border:1px solid rgba(24,49,83,0.06);
+  }
+  .mini-menu a {
+    display:flex; gap:10px; padding:10px; align-items:center; text-decoration:none;
+    color:var(--bleu-marine, #183153); border-radius:8px; font-weight:600;
+  }
+  .mini-menu a:hover { background: rgba(44,199,201,0.05); }
+  .mini-menu .meta { font-size:13px; color:#6b7a94; font-weight:500; margin-left:auto; }
+</style>
+
+<div class="floating-menu" aria-hidden="false">
+  {# Main floating chat button: show only if endpoint exists and not on that page #}
+  {% if 'show_ask_form' in available_endpoints and request.endpoint != 'show_ask_form' %}
+    {% set chat_url = safe_url('show_ask_form') %}
+    {% if chat_url %}
+      <a href="{{ chat_url }}" class="float-btn" title="Ouvrir le chat" aria-label="Ouvrir le chat">
+        <i class="fas fa-comments" style="font-size:20px;"></i>
+      </a>
+    {% endif %}
+  {% else %}
+    {# fallback: profile / login button (don't show link to current page) #}
+    {% if request.endpoint != 'show_login_form' and 'show_login_form' in available_endpoints %}
+      <a href="{{ safe_url('show_login_form') }}" class="float-btn" title="Mon compte / Connexion" aria-label="Mon compte">
+        <i class="fas fa-user"></i>
+      </a>
+    {% else %}
+      <button class="float-btn" title="Mon compte" aria-label="Mon compte" onclick="/* action disabled */">
+        <i class="fas fa-user"></i>
+      </button>
+    {% endif %}
+  {% endif %}
+
+   --Mini toggle + menu 
+  <div style="display:flex; flex-direction:column; align-items:flex-end;">
+    <div id="menuToggle" class="mini-toggle" aria-expanded="false" aria-controls="miniMenu" role="button" tabindex="0">
+      <i class="fas fa-ellipsis-h"></i>
+    </div>
+
+    <nav id="miniMenu" class="mini-menu" role="menu" aria-hidden="true">
+      {# Rappel & Notification: show if endpoint exists and not current page #}
+      {% if 'show_add_reminder_form' in available_endpoints and request.endpoint != 'show_add_reminder_form' %}
+        {% set reminder_url = safe_url('show_add_reminder_form') %}
+        {% if reminder_url %}
+          <a href="{{ reminder_url }}" role="menuitem">
+            <i class="fas fa-bell" style="color:var(--vert-clair, #7BE495); width:18px;"></i>
+            Rappel &amp; Notification
+          </a>
+        {% endif %}
+      {% endif %}
+
+      {# Mon Chat: show if endpoint exists and not current page #}
+      {% if 'show_ask_form' in available_endpoints and request.endpoint != 'show_ask_form' %}
+        {% set chat_url = safe_url('show_ask_form') %}
+        {% if chat_url %}
+          <a href="{{ chat_url }}" role="menuitem">
+            <i class="fas fa-comments" style="color:var(--bleu-marine, #183153); width:18px;"></i>
+            Mon Chat
+          </a>
+        {% endif %}
+      {% endif %}
+
+      {# Contactez un conseiller :
+         prefer 'show_contact_or_appointment' (new unified page),
+         fallback to legacy 'legacy_appointment' (or 'appointment' if present),
+         show only if endpoint exists and not current page #}
+      {% set preferred_contact = 'show_contact_or_appointment' %}
+      {% set fallback_contact = 'legacy_appointment' %}
+
+      {% if preferred_contact in available_endpoints and request.endpoint != preferred_contact %}
+        {% set contact_url = safe_url(preferred_contact) %}
+        {% if contact_url %}
+          <a href="{{ contact_url }}" role="menuitem">
+            <i class="fas fa-user-md" style="color:var(--turquoise, #2AC7C9); width:18px;"></i>
+            Contactez un conseiller
+          </a>
+        {% endif %}
+      {% elif fallback_contact in available_endpoints and request.endpoint != fallback_contact %}
+        {% set contact_url = safe_url(fallback_contact) %}
+        {% if contact_url %}
+          <a href="{{ contact_url }}" role="menuitem">
+            <i class="fas fa-user-md" style="color:var(--turquoise, #2AC7C9); width:18px;"></i>
+            Contactez un conseiller
+          </a>
+        {% endif %}
+      {% else %}
+        {# If no contact endpoints or user would be sent to current page, show login if user not logged-in and not on login page #}
+        {% if not current_user and 'show_login_form' in available_endpoints and request.endpoint != 'show_login_form' %}
+          <a href="{{ safe_url('show_login_form') }}" role="menuitem">
+            <i class="fas fa-user-md" style="color:var(--turquoise, #2AC7C9); width:18px;"></i>
+            Contactez un conseiller
+          </a>
+        {% endif %}
+      {% endif %}
+
+      {# Logout (only if logged in and endpoint exists and not current page) #}
+      {% if current_user and 'logout' in available_endpoints and request.endpoint != 'logout' %}
+        <a href="{{ safe_url('logout') }}" role="menuitem">
+          <i class="fas fa-sign-out-alt" style="color:#d9534f; width:18px;"></i>
+          Se déconnecter
+        </a>
+      {% endif %}
+    </nav>
+  </div>
+</div>
+
+<script>
+  (function(){
+    const toggle = document.getElementById('menuToggle');
+    const menu = document.getElementById('miniMenu');
+
+    function showMenu(show) {
+      if (!menu) return;
+      menu.style.display = show ? 'block' : 'none';
+      menu.setAttribute('aria-hidden', (!show).toString());
+      toggle.setAttribute('aria-expanded', (show).toString());
+    }
+
+    // Toggle on click / keyboard
+    toggle && toggle.addEventListener('click', () => showMenu(menu.style.display !== 'block'));
+    toggle && toggle.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); showMenu(menu.style.display !== 'block'); }
+      if (e.key === 'Escape') showMenu(false);
+    });
+
+    // Close when clicking outside
+    document.addEventListener('click', (ev) => {
+      if (!menu || !toggle) return;
+      const withinMenu = menu.contains(ev.target);
+      const withinToggle = toggle.contains(ev.target);
+      if (!withinMenu && !withinToggle) showMenu(false);
+    });
+
+    // Close on navigation (progressive enhancement)
+    Array.from(document.querySelectorAll('.mini-menu a')).forEach(a => {
+      a.addEventListener('click', () => showMenu(false));
+    });
+  })();
+</script>
+
+<!--
+{# _floating_menu.html - Partial safe pour le menu flottant #}
+{# Utilise `safe_url(endpoint, **kwargs)` et `current_user` fournis par app.context_processor #}
+
+{# Menu principal flottant (boutons pill / mini) #}
+<div class="floating-menu" aria-hidden="false">
+
+  {# Bouton principal (chat) - masqué si on est déjà sur le chat (endpoint 'show_ask_form' ou 'ask') #}
+  {% set chat_ep = 'show_ask_form' %}
+  {% if request.endpoint != chat_ep %}
+    {% set chat_url = safe_url(chat_ep) or safe_url('show_login_form') %}
+    {% if chat_url %}
+      <a class="float-btn" href="{{ chat_url }}" title="Ouvrir le chat" aria-label="Ouvrir le chat">
+        <i class="fas fa-comments"></i>
+      </a>
+    {% endif %}
+  {% endif %}
+
+  {# Mini bouton qui ouvre le petit menu (JS toggle) #}
+  <button id="miniToggle" class="float-mini" aria-haspopup="true" aria-expanded="false" aria-controls="miniMenu">
+    <i class="fas fa-ellipsis-h"></i>
+  </button>
+
+  <div class="mini-menu" id="miniMenu" role="menu" style="display:none;">
+    {# Rappel & Notification - masqué si on est déjà sur la page des rappels (endpoint 'show_add_reminder_form' ou 'add_reminder') #}
+    {% set rem_ep = 'show_add_reminder_form' %}
+    {% if request.endpoint != rem_ep %}
+      {% set rem_url = safe_url(rem_ep) or safe_url('show_login_form') %}
+      {% if rem_url %}
+        <a role="menuitem" href="{{ rem_url }}">
+          <i class="fas fa-bell" style="color:var(--vert-clair); width:18px;"></i>
+          <span>Rappel &amp; Notification</span>
+        </a>
+      {% endif %}
+    {% endif %}
+
+    {# Contact / Prendre RDV - utilise le nouvel endpoint 'show_contact_or_appointment' (option 3). #}
+    {% set contact_ep = 'show_contact_or_appointment' %}
+    {% if request.endpoint != contact_ep %}
+      {% set contact_url = safe_url(contact_ep) or safe_url('show_login_form') %}
+      {% if contact_url %}
+        <a role="menuitem" href="{{ contact_url }}">
+          <i class="fas fa-user-md" style="color:var(--turquoise); width:18px;"></i>
+          <span>Contactez un conseiller</span>
+        </a>
+      {% endif %}
+    {% endif %}
+
+    {# Mon Chat (accès direct à l'historique) - masqué si on est sur la page chat #}
+    {% if current_user %}
+      {% set hist_ep = 'show_ask_form' %}
+      {% if request.endpoint != hist_ep %}
+        {% set hist_url = safe_url('show_ask_form') %}
+        {% if hist_url %}
+          <a role="menuitem" href="{{ hist_url }}">
+            <i class="fas fa-history" style="width:18px;"></i>
+            <span>Mon Chat</span>
+          </a>
+        {% endif %}
+      {% endif %}
+    {% endif %}
+  </div>
+</div>
+
+<script>
+  // Toggle du mini menu (léger et autonome)
+  (function(){
+    const toggle = document.getElementById('miniToggle');
+    const menu = document.getElementById('miniMenu');
+    if (!toggle || !menu) return;
+    toggle.addEventListener('click', function(e){
+      e.stopPropagation();
+      const shown = menu.style.display === 'block';
+      menu.style.display = shown ? 'none' : 'block';
+      toggle.setAttribute('aria-expanded', String(!shown));
+    });
+    // fermer au clic dehors
+    document.addEventListener('click', function(ev){
+      if (!menu.contains(ev.target) && ev.target !== toggle) {
+        menu.style.display = 'none';
+        toggle.setAttribute('aria-expanded', 'false');
+      }
+    });
+  })();
+</script>
+-->
+
+{# templates/_floating_menu.html #}
+{# Floating menu sécurisé et amélioré :
+   - utilise safe_url(...) (injeté par app.context_processor) pour éviter BuildError
+   - vérifie available_endpoints pour ne pas créer de liens cassés
+   - masque l'option correspondant à la page active (request.endpoint)
+   - gestion accessibilité (aria), fermeture au clic hors menu, clavier
+   - conserve les variables CSS (var(--turquoise), var(--bleu-marine), ...) utilisées globalement
+#}
+
+<style>
+  .floating-menu {
+    position: fixed;
+    right: 18px;
+    bottom: 18px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    align-items: flex-end;
+    z-index: 9999;
+    font-family: inherit;
+  }
+  .float-btn {
+    width:64px; height:64px; border-radius:50%;
+    display:flex;align-items:center;justify-content:center;
+    color:white;background:var(--turquoise, #2AC7C9); border:none;
+    box-shadow: 0 12px 30px rgba(44,199,201,0.18); cursor:pointer; font-size:20px;
+    text-decoration: none;
+  }
+  .mini-toggle {
+    width:48px;height:48px;border-radius:12px;background:white;color:var(--bleu-marine, #183153);
+    display:flex;align-items:center;justify-content:center;border:1px solid rgba(24,49,83,0.06);
+    box-shadow: 0 8px 20px rgba(24,49,83,0.05); cursor:pointer;
+  }
+  .mini-menu {
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 14px 40px rgba(24,49,83,0.12);
+    padding: 8px;
+    min-width: 220px;
+    display: none; /* shown via JS */
+    border:1px solid rgba(24,49,83,0.06);
+  }
+  .mini-menu a, .mini-menu button {
+    display:flex; gap:10px; padding:10px; align-items:center; text-decoration:none;
+    color:var(--bleu-marine, #183153); border-radius:8px; font-weight:600;
+    background: transparent; border: none; width:100%; text-align:left; cursor:pointer;
+  }
+  .mini-menu a:hover, .mini-menu button:hover { background: rgba(44,199,201,0.05); }
+  .mini-menu .meta { font-size:13px; color:#6b7a94; font-weight:500; margin-left:auto; }
+</style>
+
+<div class="floating-menu" aria-hidden="false">
+  {# --- Bouton principal : Chat / Profil (ne pas afficher si on est déjà sur la même page) --- #}
+  {% set endpoint_chat = 'show_ask_form' %}
+  {% set endpoint_login = 'show_login_form' %}
+  {% if endpoint_chat in available_endpoints and request.endpoint != endpoint_chat %}
+    {% set chat_url = safe_url(endpoint_chat) %}
+    {% if chat_url %}
+      <a href="{{ chat_url }}" class="float-btn" title="Ouvrir le chat" aria-label="Ouvrir le chat">
+        <i class="fas fa-comments" style="font-size:20px;"></i>
+      </a>
+    {% endif %}
+  {% else %}
+    {# si on ne peut pas pointer vers le chat, proposer profil/connexion (si pas sur la page de login) #}
+    {% if request.endpoint != endpoint_login and endpoint_login in available_endpoints %}
+      {% set login_url = safe_url(endpoint_login) %}
+      {% if login_url %}
+        <a href="{{ login_url }}" class="float-btn" title="Mon compte / Connexion" aria-label="Mon compte">
+          <i class="fas fa-user"></i>
+        </a>
+      {% else %}
+        <button class="float-btn" aria-label="Mon compte" title="Mon compte" onclick="/* action disabled */">
+          <i class="fas fa-user"></i>
+        </button>
+      {% endif %}
+    {% else %}
+      <button class="float-btn" aria-label="Mon compte" title="Mon compte" onclick="/* action disabled */">
+        <i class="fas fa-user"></i>
+      </button>
+    {% endif %}
+  {% endif %}
+
+  {# --- Mini toggle + menu déroulant --- #}
+  <div style="display:flex; flex-direction:column; align-items:flex-end;">
+    <div id="menuToggle" class="mini-toggle" aria-expanded="false" aria-controls="miniMenu" role="button" tabindex="0" title="Plus d'options">
+      <i class="fas fa-ellipsis-h"></i>
+    </div>
+
+    <nav id="miniMenu" class="mini-menu" role="menu" aria-hidden="true" aria-labelledby="menuToggle">
+      {# Rappel & Notification - n'affiche pas si la page active est la même #}
+      {% if 'show_add_reminder_form' in available_endpoints and request.endpoint != 'show_add_reminder_form' %}
+        {% set reminder_url = safe_url('show_add_reminder_form') %}
+        {% if reminder_url %}
+          <a href="{{ reminder_url }}" role="menuitem">
+            <i class="fas fa-bell" style="color:var(--vert-clair, #7BE495); width:18px;"></i>
+            Rappel &amp; Notification
+          </a>
+        {% endif %}
+      {% endif %}
+
+      {# Mon Chat (doublon dans menu) - masque si page active #}
+      {% if endpoint_chat in available_endpoints and request.endpoint != endpoint_chat %}
+        {% set chat_url = safe_url(endpoint_chat) %}
+        {% if chat_url %}
+          <a href="{{ chat_url }}" role="menuitem">
+            <i class="fas fa-comments" style="color:var(--bleu-marine, #183153); width:18px;"></i>
+            Mon Chat
+          </a>
+        {% endif %}
+      {% endif %}
+
+      {# Contactez un conseiller : préfère la page unifiée 'show_contact_or_appointment' #}
+      {% set preferred_contact = 'show_contact_or_appointment' %}
+      {% set fallback_contact = 'legacy_appointment' %}
+
+      {% if preferred_contact in available_endpoints and request.endpoint != preferred_contact %}
+        {% set contact_url = safe_url(preferred_contact) %}
+        {% if contact_url %}
+          <a href="{{ contact_url }}" role="menuitem">
+            <i class="fas fa-user-md" style="color:var(--turquoise, #2AC7C9); width:18px;"></i>
+            Contactez un conseiller
+          </a>
+        {% endif %}
+      {% elif fallback_contact in available_endpoints and request.endpoint != fallback_contact %}
+        {% set contact_url = safe_url(fallback_contact) %}
+        {% if contact_url %}
+          <a href="{{ contact_url }}" role="menuitem">
+            <i class="fas fa-user-md" style="color:var(--turquoise, #2AC7C9); width:18px;"></i>
+            Contactez un conseiller
+          </a>
+        {% endif %}
+      {% else %}
+        {# si pas d'endpoint contact disponible et utilisateur non connecté, proposer login (sauf si déjà sur login) #}
+        {% if not current_user and endpoint_login in available_endpoints and request.endpoint != endpoint_login %}
+          {% set lurl = safe_url(endpoint_login) %}
+          {% if lurl %}
+            <a href="{{ lurl }}" role="menuitem">
+              <i class="fas fa-user-md" style="color:var(--turquoise, #2AC7C9); width:18px;"></i>
+              Contactez un conseiller
+            </a>
+          {% endif %}
+        {% endif %}
+      {% endif %}
+
+      {# Se déconnecter (afficher uniquement si connecté et l'endpoint existe et n'est pas la page courante) #}
+      {% if current_user and 'logout' in available_endpoints and request.endpoint != 'logout' %}
+        {% set logout_url = safe_url('logout') %}
+        {% if logout_url %}
+          <a href="{{ logout_url }}" role="menuitem">
+            <i class="fas fa-sign-out-alt" style="color:#d9534f; width:18px;"></i>
+            Se déconnecter
+          </a>
+        {% else %}
+          <button type="button" role="menuitem" onclick="location.href='{{ safe_url('logout') or '#' }}'">
+            <i class="fas fa-sign-out-alt" style="color:#d9534f; width:18px;"></i>
+            Se déconnecter
+          </button>
+        {% endif %}
+      {% endif %}
+    </nav>
+  </div>
+</div>
+
+<script>
+  (function(){
+    const toggle = document.getElementById('menuToggle');
+    const menu = document.getElementById('miniMenu');
+
+    function showMenu(show) {
+      if (!menu || !toggle) return;
+      menu.style.display = show ? 'block' : 'none';
+      menu.setAttribute('aria-hidden', (!show).toString());
+      toggle.setAttribute('aria-expanded', (show).toString());
+    }
+
+    // Toggle sur click + clavier (Enter, Space). Escape ferme le menu.
+    toggle && toggle.addEventListener('click', () => showMenu(menu.style.display !== 'block'));
+    toggle && toggle.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); showMenu(menu.style.display !== 'block'); }
+      if (e.key === 'Escape') showMenu(false);
+    });
+
+    // Fermer le menu si on clique en dehors
+    document.addEventListener('click', (ev) => {
+      if (!menu || !toggle) return;
+      const withinMenu = menu.contains(ev.target);
+      const withinToggle = toggle.contains(ev.target);
+      if (!withinMenu && !withinToggle) showMenu(false);
+    });
+
+    // Fermer le menu après navigation (progressive enhancement)
+    Array.from(document.querySelectorAll('.mini-menu a')).forEach(a => {
+      a.addEventListener('click', () => showMenu(false));
+    });
+  })();
+</script>
+ 

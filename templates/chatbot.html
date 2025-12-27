@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>MATERNUM &amp; INFANS — Chat</title>
+
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;600;800&family=Poppins:wght@300;600;800&display=swap" rel="stylesheet">
+
+  <!-- Bootstrap + FontAwesome -->
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet"/>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"/>
+
+  <!-- Optional shared stylesheet -->
+  <!-- <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}"> -->
+  <style>
+    :root{
+      --turquoise:#2AC7C9;
+      --cyan:#4FC3E8;
+      --vert-clair:#7BE495;
+      --bleu-marine:#183153;
+      --orange:#FFB86C;
+      --bg-soft:#F7FBFA;
+      --card-radius:16px;
+      --btn-radius:999px;
+      --shadow-md: 0 10px 26px rgba(24,49,83,0.06);
+      --muted:#6b7a94;
+    }
+
+    /* Base */
+    html,body{
+      width:100%;
+      height:100%;
+      margin:0;
+      padding:0;
+      box-sizing:border-box;
+      overflow-x:hidden;
+      background: linear-gradient(180deg, #f4fbfb 0%, #f8fdfd 100%);
+      font-family: "Poppins", "Nunito", system-ui, -apple-system, "Segoe UI", Roboto, Arial;
+      color:var(--bleu-marine);
+    }
+    *,*::before,*::after{ box-sizing:inherit; }
+
+    /* Layout pour footer collé */
+    .page-wrapper{ min-height:100vh; display:flex; flex-direction:column; }
+    main.content{ flex:1 0 auto; display:flex; align-items:center; justify-content:center; padding:24px; }
+
+    /* Chat card */
+    .chat-container {
+      width: 420px; max-width: 96%;
+      height: 560px;
+      background-color: #fff;
+      box-shadow: var(--shadow-md);
+      border-radius: var(--card-radius);
+      display: flex; flex-direction: column; overflow: hidden;
+      position: relative;
+      margin: 12px;
+    }
+
+    .chat-header {
+      display:flex; align-items:center; gap:12px;
+      padding:14px 16px;
+      background: linear-gradient(90deg, var(--bleu-marine), #0b4a6b);
+      color:#fff; font-weight:800; font-size:16px;
+    }
+    .chat-header .logo {
+      width:40px;height:40px;border-radius:10px;
+      background: linear-gradient(135deg,var(--turquoise),var(--vert-clair));
+      display:flex;align-items:center;justify-content:center;color:white;
+      box-shadow:0 6px 18px rgba(44,199,201,0.12);
+      overflow:hidden;
+    }
+    .chat-header .title { font-family: "Nunito","Poppins"; margin:0; font-size:16px; }
+    .chat-header .title p { margin:0; font-size:12px; font-weight:400; opacity:0.95; }
+
+    .chat-messages {
+      flex: 1;
+      padding: 18px;
+      background-color: #fafdfc;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      word-break: break-word;
+    }
+
+    .chat-message { display:flex; }
+    .message-bubble {
+      max-width: 82%;
+      padding: 10px 14px;
+      border-radius: 18px;
+      font-size: 14px;
+      line-height: 1.4;
+      background:#fff;
+      border: 1px solid rgba(24,49,83,0.04);
+    }
+    .message-bubble.user {
+      background: linear-gradient(90deg,var(--turquoise),var(--vert-clair));
+      color: #06323a;
+      align-self: flex-end;
+      border-bottom-right-radius: 6px;
+      box-shadow: 0 6px 18px rgba(42,199,201,0.08);
+      border: none;
+    }
+    .message-bubble.bot {
+      color: var(--bleu-marine);
+      align-self: flex-start;
+    }
+
+    .chat-footer {
+      padding: 12px;
+      background-color: #f1f6f6;
+      display: flex;
+      gap: 10px;
+      align-items: center;
+      border-top: 1px solid rgba(24,49,83,0.03);
+    }
+    .chat-footer input#chatMessageInput {
+      flex: 1;
+      padding: 12px 14px;
+      border-radius: 999px;
+      border: 1px solid rgba(24,49,83,0.06);
+      outline: none;
+      font-size: 14px;
+      background: white;
+    }
+    .chat-footer button#sendBtn {
+      width:48px; height:48px; border-radius:50%;
+      background: linear-gradient(90deg,var(--turquoise),var(--vert-clair));
+      color:#06323a; border:none; display:flex; align-items:center; justify-content:center;
+      box-shadow: 0 10px 30px rgba(44,199,201,0.12);
+    }
+
+    /* History button */
+    .history-button { position: fixed; left: 16px; top: 16px; background:var(--bleu-marine); color: #fff; border: none; border-radius: 999px; padding: 8px 12px; cursor: pointer; z-index:2000; box-shadow:0 8px 20px rgba(24,49,83,0.12); }
+
+    /* Panels (hidden by default) */
+    .history-form { display:none; position:absolute; top:60px; right:0; background:#fff; width:100%; height:100%; max-height:420px; padding:16px; box-shadow:0 6px 18px rgba(0,0,0,0.08); z-index:12; overflow:auto; border-radius:0 0 12px 12px; }
+    .close-btn { position:absolute; right:12px; top:12px; background:#dc3545; color:#fff; border:none; padding:6px 10px; border-radius:8px; cursor:pointer; }
+
+    .history-chat { padding:10px; border-bottom:1px solid #eee; cursor:pointer; }
+    .history-chat strong { display:block; color:var(--bleu-marine); }
+    .history-chat small { color:#666; font-size:12px; }
+
+    footer.site-footer { text-align:center; padding:18px; color:var(--muted); font-size:13px; }
+
+    @media (max-width:480px){
+      .chat-container{ height: 88vh; margin:12px; }
+      .chat-header .title{ font-size:14px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="page-wrapper">
+    <main class="content" role="main" aria-labelledby="chatTitle">
+      <!-- Afficher le bouton Historique seulement si l'utilisateur est connecté -->
+      {% if current_user %}
+        <button class="history-button" id="historyBtn" title="Historique" aria-label="Historique" onclick="toggleHistoryForm()">
+          <i class="fas fa-history"></i>
+        </button>
+      {% endif %}
+
+      <div class="chat-container" role="region" aria-labelledby="chatTitle">
+        <div class="chat-header">
+          <div class="logo" aria-hidden="true">
+            <img src="{{ url_for('static', filename='images/sante_maternel.png') }}" alt="Logo MATERNUM & INFANS" style="width:100%;height:100%;object-fit:cover"/>
+          </div>
+          <div class="title" id="chatTitle">MATERNUM &amp; INFANS
+            <p>Votre assistant Maman Bébé</p>
+          </div>
+        </div>
+
+        <div class="chat-messages" id="chatbox" aria-live="polite" role="log"></div>
+
+        <div class="chat-footer" role="region" aria-label="Zone d'envoi">
+          <input id="chatMessageInput" type="text" placeholder="Tapez votre message..." aria-label="Votre message" autocomplete="off"/>
+          <button id="sendBtn" aria-label="Envoyer"><i class="fas fa-paper-plane"></i></button>
+        </div>
+
+        <!-- History panel (private) -->
+        <div class="history-form" id="historyPanel" aria-hidden="true">
+          <button class="close-btn" onclick="toggleHistoryForm()">X</button>
+          <h4>Historique du Chat</h4>
+          <div id="historyMessages" style="margin-top:10px;"></div>
+          <div style="margin-top:12px;">
+            <button class="btn btn-secondary" onclick="startNewChat()">Créer un nouveau chat</button>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <footer class="site-footer">
+      &copy; 2025 MATERNUM &amp; INFANS — Tous droits réservés.
+    </footer>
+  </div>
+
+
+  <!-- jQuery -->
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+  <script>
+    // Helpers
+    function showElement(el, show) {
+      if (!el) return;
+      el.style.display = show ? 'block' : 'none';
+      el.setAttribute('aria-hidden', show ? 'false' : 'true');
+    }
+
+    // Toggle history panel (private)
+    function toggleHistoryForm(){
+      const el = document.getElementById('historyPanel');
+      if (!el) return;
+      const show = el.style.display !== 'block';
+      showElement(el, show);
+      if (show) loadHistory();
+    }
+
+    // Chat send
+    const chatInput = document.getElementById('chatMessageInput');
+    const sendBtn = document.getElementById('sendBtn');
+
+    function appendMessage(text, who='bot') {
+      const chatbox = document.getElementById('chatbox');
+      if (!chatbox) return;
+      const wrapper = document.createElement('div');
+      wrapper.className = 'chat-message';
+      const bubble = document.createElement('div');
+      bubble.className = 'message-bubble ' + (who === 'user' ? 'user' : 'bot');
+      bubble.textContent = text;
+      wrapper.appendChild(bubble);
+      chatbox.appendChild(wrapper);
+      chatbox.scrollTop = chatbox.scrollHeight;
+    }
+
+    async function sendMessage(){
+      if(!chatInput) return;
+      const text = chatInput.value.trim();
+      if (!text) return;
+      appendMessage(text, 'user');
+      chatInput.value = '';
+      if(sendBtn) sendBtn.disabled = true;
+      try {
+        const res = await fetch('/chat', {
+          method:'POST',
+          headers:{'Content-Type':'application/json'},
+          body: JSON.stringify({ message: text })
+        });
+
+        // Si backend renvoie un statut non autorisé / redirect vers login
+        if (res.status === 401 || res.status === 302) {
+          window.location.href = "{{ url_for('show_login_form') }}";
+          return;
+        }
+
+        // Tenter de parser JSON en sécurité
+        let data;
+        try { data = await res.json(); } catch (e) {
+          console.error('Réponse non-JSON du serveur', e);
+          appendMessage("Erreur serveur : réponse invalide.", 'bot');
+          return;
+        }
+
+        appendMessage(data.message || 'Erreur: réponse vide', 'bot');
+      } catch (err){
+        console.error(err);
+        appendMessage("Erreur serveur. Veuillez réessayer plus tard.", 'bot');
+      } finally {
+        if(sendBtn) sendBtn.disabled = false;
+        if(chatInput) chatInput.focus();
+      }
+    }
+
+    // Bindings
+    if (chatInput) {
+      chatInput.addEventListener('keydown', function(e){
+        if (e.key === 'Enter' && !e.shiftKey) {
+          e.preventDefault();
+          sendMessage();
+        }
+      });
+    }
+    if (sendBtn) sendBtn.addEventListener('click', sendMessage);
+
+    // History loader (private, user must be authenticated)
+    async function loadHistory() {
+      const container = document.getElementById('historyMessages');
+      if (!container) return;
+      container.innerHTML = '<p>Chargement...</p>';
+      try {
+        const res = await fetch('/get_history');
+        if (res.status === 401 || res.status === 302) {
+          window.location.href = "{{ url_for('show_login_form') }}";
+          return;
+        }
+        const data = await res.json();
+        container.innerHTML = '';
+        if (!data || !Array.isArray(data.history) || !data.history.length) {
+          container.innerHTML = '<p>Aucun historique trouvé.</p>';
+          return;
+        }
+        data.history.forEach(chat => {
+          const el = document.createElement('div');
+          el.className = 'history-chat';
+          el.innerHTML = `<strong>${chat.title}</strong><small style="display:block;color:#666">${chat.date}</small>`;
+          el.onclick = () => loadChat(chat.id);
+          container.appendChild(el);
+        });
+      } catch (err) {
+        console.error(err);
+        container.innerHTML = '<p class="text-danger">Erreur de chargement de l\'historique.</p>';
+      }
+    }
+
+    async function loadChat(id) {
+      try {
+        const res = await fetch(`/get_chat/${id}`);
+        if (res.status === 401 || res.status === 302) {
+          window.location.href = "{{ url_for('show_login_form') }}";
+          return;
+        }
+        const data = await res.json();
+        const chatbox = document.getElementById('chatbox');
+        if (!chatbox) return;
+        chatbox.innerHTML = '';
+        (data.messages || []).forEach(m => appendMessage(m.text, m.user === 'Bot' ? 'bot' : 'user'));
+        toggleHistoryForm();
+      } catch (err) {
+        console.error(err);
+        alert('Impossible de charger ce chat.');
+      }
+    }
+
+    function startNewChat(){
+      const chatbox = document.getElementById('chatbox');
+      if (chatbox) chatbox.innerHTML = '';
+      toggleHistoryForm();
+    }
+
+    // focus input on load
+    window.addEventListener('load', ()=> { if(chatInput) chatInput.focus(); });
+  </script>
+</body>
+</html>
